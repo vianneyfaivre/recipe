@@ -13,7 +13,7 @@
 	}
 	
 	onMount(async () => {
-		recipes = await loadYaml("/creme-patissiere.yaml"); 
+		recipes = await loadYaml("/simple.yaml"); 
 		console.info(recipes)
 	});
 
@@ -54,26 +54,26 @@
 									{#if recipe[1].yield}
 										pour 
 										<span itemprop="recipeYield">
-											<span id="{recipe[0]}-yield" data-originalValue="{ recipe[0].yield }">{ recipe[0].yield }</span>
+											<span id="{recipe[0]}-yield" data-originalValue="{ recipe[1].yield }">{ recipe[1].yield }</span>
 											{recipe[1].yieldType}
 										</span>
 									{/if}
 								</h4>
 
 								<ul id="{recipe[0]}-ingredients" class="variante-ingredients">
-									{#each recipe[1].ingredients as ingredient }
+									{#each Object.values(recipe[1].ingredients) as ingredient }
 									
 									<!--
 										
-										{% capture ingredientQte %}
+										{% capture ingredientQte }
 											<span class="ingredient-qte-fixed" data-originalValue="{ingredient.qte}">
 												{ingredient.qte}
 											</span>
-										{% endcapture %}
+										{% endcapture }
 									
 									
 										{#if  ingredient.variable == true }
-											{% capture ingredientQte %}
+											{% capture ingredientQte }
 												<input class="ingredient-qte-variable" 
 														type="number" 
 														data-varianteId="{recipe[0]}"
@@ -81,7 +81,7 @@
 														value="{ingredient.qte}"
 														min="1"
 												/>
-											{% endcapture %}
+											{% endcapture }
 										{/if}
 
 									-->
@@ -90,9 +90,9 @@
 										{#if ingredient.qte }
 									
 											{#if ingredient.lien }
-												<a href="{ ingredient.lien }">{ ingredient.nom }</a> : { ingredient.qte } { ingredient.unite }
+												<a href="{ ingredient.lien }">{ ingredient.nom }</a> : { ingredient.qte } { ingredient.unite || '' }
 											{:else}
-												{ ingredient.nom } : { ingredient.qte } { ingredient.unite }
+												{ ingredient.nom } : { ingredient.qte } { ingredient.unite || '' }
 											{/if}
 										{:else}
 											
@@ -109,9 +109,69 @@
 
 							</div> <!-- INGREDIENTS -->
 			
-							<div class="etapes-panel"> <!-- STEPS -->
-							</div> <!-- STEPS -->
 			
+							<div class="etapes-panel"> <!-- STEPS -->
+
+								<h3 class="variante-subtitles" id="{recipe[0]}-subtitle" itemprop="name"> 
+									🎺 { recipes.title } - { recipe[0] } 🎺
+								</h3>
+
+								{#if recipes.preconditions || recipes.withYeast }
+									<h4>📜 Préambule</h4>
+									
+									<ul>
+									
+									{#if recipes.preconditions}
+										{#each Object.values(recipes.preconditions) as precondition }
+											<li>{ precondition }</li>
+										{/each}
+									{/if}
+										
+									{#if recipes.withYeast }
+										<li><a href="/cuisine/levure">Activer la levure</a></li>
+									{/if}
+
+									</ul>
+								{/if}
+
+									
+								{#if recipe[1].preconditions }
+									<div id="{recipe[0]}-preconditions" class="variante-preconditions">
+
+										<h4>📜 Préambule</h4>
+										
+										<ul>
+											
+											{#each recipe[1].preconditions as precondition }
+											<li itemprop="recipeInstructions">{ precondition }</li>
+											{/each}
+											
+										</ul>
+									</div>
+								{/if}
+
+								<div id="{recipe[0]}-etapes" class="variante-etapes">
+
+									{#each Object.values(recipe[1].etapes) as step}
+										<h4>TODO {step.label}</h4>
+										<ol>
+										{#each Object.values(step.details) as detail }
+											
+											<li itemprop="recipeInstructions">
+												{#if typeof detail === "string" }
+													{ detail }
+												{:else }
+													<a href="{ detail.link }">{ detail.label }</a>
+												{/if}
+											</li>
+											
+										{/each}
+										</ol>
+									{/each}
+								</div>
+
+							</div> <!-- STEPS -->
+							
 						</div>
 					
 						<div class="bottom-panel"> <!-- BOTTOM -->

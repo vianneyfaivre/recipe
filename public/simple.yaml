@@ -1,0 +1,74 @@
+title: Test Recipe
+
+withYeast: true
+
+preconditions:
+  - global pre I
+  - global pre II
+
+recettes:
+  Recette 1:
+    yield: 18
+    yieldType: units
+    ingredients:
+      - nom: variable
+        qte: 350
+        unite: mL
+        variable: true
+      - nom: no unit
+        qte: 4
+      - nom: grams
+        qte: 100
+        unite: gr
+      - nom: just name
+      - nom: link with qty
+        lien: /link/just-name
+        qte: 1
+      - nom: link with qty and unit
+        lien: /link/just-name
+        qte: 1
+        unite: liter
+      - nom: link without qty
+        lien: /link/without-qty
+      - nom: link with anchor
+        lien: /link/with#anchor
+    preconditions:
+      - pre 1
+      - pre 2
+    etapes:
+      - label: Steps I
+        details:
+          - Step I-1
+          - label: Step I-2 with link
+            link: /steps/link
+      - label: Steps II
+        emoji: 🔥
+        details:
+          - Step II-1
+          - Step II-2
+    
+  Recette 2:
+    yield: 2
+    ingredients:
+      - nom: fixed
+        qte: 350
+    etapes:
+      - label: Steps I
+        details:
+          - Step I-1
+      - label: Steps II
+        emoji: 🔥
+        details:
+          - Step II-1
+          - Step II-2
+
+notes:
+  - Notes blabla
+  - label: Note with link
+    link: https://vianneyfaivre.com
+
+variantes:
+  - label: variante 1
+    todo: false
+  - label: variante 2
+    todo: true
