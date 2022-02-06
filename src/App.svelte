@@ -1,67 +1,115 @@
 <script lang="ts">
 	import * as jsyaml from "js-yaml";
 	import { onMount } from 'svelte';
+	import type { PageData, Recipe } from "./model";
 
-	export let recipes: any;
+	export let pageData: PageData;
+	export let selectedRecipeId: string;
 
-	async function loadYaml(path) {
+	async function loadYaml(path: string) {
 
 		const response = await fetch(path);
 		const yaml = await response.text();
 
-		return await jsyaml.load(yaml);
+		const json = await jsyaml.load(yaml);
+
+		// Convert object to Map
+		json.recettes = new Map(Object.entries(json.recettes));
+
+		return json;
 	}
 	
 	onMount(async () => {
-		recipes = await loadYaml("/simple.yaml"); 
-		console.info(recipes)
+
+		pageData = await loadYaml("/simple.yaml"); 
+		console.info(pageData)
+
+		// Select the first recipe by default
+		selectedRecipeId = pageData.recettes.keys().next().value;
+
+		console.info(selectedRecipeId)
 	});
+
+	function onVarianteButtonClick(recipeId: string, recipe: Recipe) {
+
+		console.info(`Selected ${recipeId}`);
+		selectedRecipeId = recipeId;
+
+		// Update URL hash
+		if (pageData.recettes.length > 1) {
+			window.location.replace("#" + recipeId)
+		}  
+
+		// Remove all buttons highlighting
+		for (const variante in pageData.recettes) {
+	//		const varianteId = variante[0];
+	//		varianteButton.classList.remove "active"
+		}
+			
+
+		// Highlight the clicked button
+	//	btn.classList.add "active"
+
+		// Hide all variantes
+	//	hideElements variantes
+
+		// Display the right variante
+	//	variante = document.getElementById varianteId+"-variante"
+	//	changeDisplay variante, 'block'
+
+		// Hide pictures title when there are none for the selected variante
+		//variantePictures = document.getElementById varianteId + "-pictures"
+		//if variantePictures
+		//	hasPictures = variantePictures.getElementsByClassName("recipe-picture").length > 0	
+		//	if !hasPictures
+		//	changeDisplay variantePictures, 'none'
+	}
 
 </script>
 
-{#if recipes}
+{#if pageData && selectedRecipeId}
 
 	<main>
 
 		<article class="post h-entry recette">
 
 			<header>
-				<h1 class="post-title p-name">{recipes.title}</h1>
+				<h1 class="post-title p-name">{pageData.title}</h1>
 			</header>
 		
 			<div class="post-content e-content">
 		
 				<div class="variantes-tabs">
 				
-					{#each Object.entries(recipes.recettes) as recipe}
-						<button class="variantes-btn">{recipe[0]}</button>
+					{#each [...pageData.recettes] as [recipeId, recipe]}
+						<button class="variantes-btn" on:click={e => onVarianteButtonClick(recipeId, recipe)}>{recipeId}</button>
 					{/each}
 
 				</div>
 
-				{#each Object.entries(recipes.recettes) as recipe }
+				{#each [...pageData.recettes] as [recipeId, recipe]}
 
-					<div id="{recipe[0]}-variante" class="variante-whole hidden" itemscope itemtype="https://schema.org/Recipe">
+					<div id="{recipeId}-variante" class="variante-whole" class:hidden={recipeId !== selectedRecipeId} itemscope itemtype="https://schema.org/Recipe">
 			
-						<div id="{recipe[0]}-whole" class="recette-whole"> 
+						<div id="{recipeId}-whole" class="recette-whole"> 
 			
 							<div class="ingredients-panel"> <!-- INGREDIENTS -->
 
 
-								<h4 id="{recipe[0]}-title" class="variante-title">
+								<h4 id="{recipeId}-title" class="variante-title">
 									🥕 Ingrédients 
 
-									{#if recipe[1].yield}
+									{#if recipe.yield}
 										pour 
 										<span itemprop="recipeYield">
-											<span id="{recipe[0]}-yield" data-originalValue="{ recipe[1].yield }">{ recipe[1].yield }</span>
-											{recipe[1].yieldType}
+											<span id="{recipeId}-yield" data-originalValue="{ recipe.yield }">{ recipe.yield }</span>
+											{recipe.yieldType}
 										</span>
 									{/if}
 								</h4>
 
-								<ul id="{recipe[0]}-ingredients" class="variante-ingredients">
-									{#each Object.values(recipe[1].ingredients) as ingredient }
+								<ul id="{recipeId}-ingredients" class="variante-ingredients">
+									{#each Object.values(recipe.ingredients) as ingredient }
 									
 									<!--
 										
@@ -76,7 +124,7 @@
 											{% capture ingredientQte }
 												<input class="ingredient-qte-variable" 
 														type="number" 
-														data-varianteId="{recipe[0]}"
+														data-varianteId="{recipeId}"
 														data-originalValue="{ ingredient.qte }"
 														value="{ingredient.qte}"
 														min="1"
@@ -112,22 +160,22 @@
 			
 							<div class="etapes-panel"> <!-- STEPS -->
 
-								<h3 class="variante-subtitles" id="{recipe[0]}-subtitle" itemprop="name"> 
-									🎺 { recipes.title } - { recipe[0] } 🎺
+								<h3 class="variante-subtitles" id="{recipeId}-subtitle" itemprop="name"> 
+									🎺 { pageData.title } - { recipeId } 🎺
 								</h3>
 
-								{#if recipes.preconditions || recipes.withYeast }
+								{#if pageData.preconditions || pageData.withYeast }
 									<h4>📜 Préambule</h4>
 									
 									<ul>
 									
-									{#if recipes.preconditions}
-										{#each Object.values(recipes.preconditions) as precondition }
+									{#if pageData.preconditions}
+										{#each Object.values(pageData.preconditions) as precondition }
 											<li>{ precondition }</li>
 										{/each}
 									{/if}
 										
-									{#if recipes.withYeast }
+									{#if pageData.withYeast }
 										<li><a href="/cuisine/levure">Activer la levure</a></li>
 									{/if}
 
@@ -135,14 +183,14 @@
 								{/if}
 
 									
-								{#if recipe[1].preconditions }
-									<div id="{recipe[0]}-preconditions" class="variante-preconditions">
+								{#if recipe.preconditions }
+									<div id="{recipeId}-preconditions" class="variante-preconditions">
 
 										<h4>📜 Préambule</h4>
 										
 										<ul>
 											
-											{#each recipe[1].preconditions as precondition }
+											{#each recipe.preconditions as precondition }
 											<li itemprop="recipeInstructions">{ precondition }</li>
 											{/each}
 											
@@ -150,9 +198,9 @@
 									</div>
 								{/if}
 
-								<div id="{recipe[0]}-etapes" class="variante-etapes">
+								<div id="{recipeId}-etapes" class="variante-etapes">
 
-									{#each Object.values(recipe[1].etapes) as step}
+									{#each Object.values(recipe.etapes) as step}
 										<h4>TODO {step.label}</h4>
 										<ol>
 										{#each Object.values(step.details) as detail }
@@ -176,10 +224,10 @@
 					
 						<div class="bottom-panel"> <!-- BOTTOM -->
 
-							{#if recipes.notes }
+							{#if pageData.notes }
 								<h4>📝 Notes</h4>
 								<ul>
-								{#each recipes.notes as note }
+								{#each pageData.notes as note }
 
 									{#if typeof note === "string" }
 										<li>{ note }</li>
@@ -190,10 +238,10 @@
 								</ul>
 							{/if}
 
-							{#if recipes.variantes }
+							{#if pageData.variantes }
 								<h4>💡 Variantes</h4>
 								<ul class="no-dots">
-								{#each recipes.variantes as variante }
+								{#each pageData.variantes as variante }
 									<li>
 										{#if variante.todo }
 											<input type="checkbox" />

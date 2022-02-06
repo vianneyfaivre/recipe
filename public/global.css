@@ -1,63 +1,108 @@
-html, body {
-	position: relative;
-	width: 100%;
-	height: 100%;
+/** Main.css **/
+.hidden {
+	display: none;
 }
 
-body {
-	color: #333;
-	margin: 0;
-	padding: 8px;
-	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+/** Recette.css **/
+
+.recette header {
+	border-bottom: 1px solid #e8e8e8; 
+	margin-bottom: 15px;
 }
 
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+.recette h1 {
+	text-align: center;
+	margin-bottom: 25px;
 }
 
-a:hover {
-	text-decoration: underline;
+.recette h3.variante-subtitles {
+	text-align: center;
 }
 
-a:visited {
-	color: rgb(0,80,160);
+.recette .recette-whole {
+	border-bottom: 1px solid #e8e8e8; 
+	padding-bottom: 15px; 
+	margin-bottom: 15px;
+	
+	display: flex; 
+	flex-flow: row nowrap;
 }
 
-label {
-	display: block;
+.recette .ingredients-panel {
+	padding-right: 10px;
+	
+	flex: 0 1 auto;
+	white-space: nowrap;
 }
 
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	-webkit-padding: 0.4em 0;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+.recette .etapes-panel {
+	border-left: 1px solid #e8e8e8; 
+	padding-left: 10px;
+	
+	flex: 1 1 auto;
+}
+	
+.recette .no-dots {
+	list-style-type: none;
+	margin-left: 10px;
 }
 
-input:disabled {
-	color: #ccc;
+.recette .recipe-pictures {
+
+	display: flex;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+	align-items: flex-start;
 }
 
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+.recette .recipe-pictures .recipe-picture {
+
+	padding: 5px;
+	border-radius: 10px;
+	transition: width 500ms;
+	cursor: pointer;
 }
 
-button:disabled {
-	color: #999;
+/* Specific for the recipes with multiple variantes */
+.recette .variantes-tabs {
+	overflow: hidden;
+	border-bottom: 1px solid #e8e8e8;
+	margin-bottom: 15px;
+	margin-top: -15px;
 }
 
-button:not(:disabled):active {
+.recette .variantes-tabs button {
+	background-color: inherit;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	font-size: 13px;
+	transition: 0.3s;
+}
+
+.recette .variantes-tabs button:hover {
 	background-color: #ddd;
 }
 
-button:focus {
-	border-color: #666;
+.recette .variantes-tabs button.active {
+	background-color: #e8e8e8;
+}
+
+.recette .ingredient-qte-variable {
+	width: 4em;
+}
+
+/* Mobile view */ 
+@media all and (max-width: 700px) {
+	.recette-whole {
+	flex-direction: column;
+	}
+	
+	.etapes-panel {
+	border-left: 0; 
+	padding-left: 0px;
+	margin: 0px;
+	
+	flex: 1 1 auto;
+	}
 }
