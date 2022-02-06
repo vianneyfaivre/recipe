@@ -20,7 +20,13 @@
 		}
 
 		const yaml = await response.text();
-		const json = await jsyaml.load(yaml);
+		let json;
+		try {
+			json = await jsyaml.load(yaml);
+		} catch(e) {
+			error = `Cause : le fichier "${path}" est invalide : ${e.reason}`;
+			return;
+		}
 
 		// Convert object to Map
 		json.recettes = new Map(Object.entries(json.recettes));
@@ -95,14 +101,7 @@
 
 		{:else}
 
-			<header>
-				<h1 class="post-title p-name">Chargement en cours</h1>
-			</header>
-
-			<div class="post-content e-content">
-				<p>Chargement...</p>
-			</div>
-
+			<!-- No loading screen -->
 		{/if}
 		
 	</article>
