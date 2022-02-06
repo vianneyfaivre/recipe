@@ -28,6 +28,8 @@ export class IngredientDTO {
     readonly unite?: string;
     readonly variable?: boolean;
     readonly lien?: string;
+
+    updatedQty: number;
 }
 
 export class StepDTO {

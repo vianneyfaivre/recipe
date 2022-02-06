@@ -1,45 +1,42 @@
 <script lang="ts">
-    import type { IngredientDTO } from "./model";
-    
+    import type { IngredientDTO } from "./model";	
+    import { createEventDispatcher } from 'svelte';
+
     export let ingredient: IngredientDTO;
-
-    function displayQuantity(): string {
-
-        if(!!ingredient.qte) {
-            return `: ${ingredient.qte} ${ingredient.unite || ''}`;
-        }
-        return '';
-    }
-</script>
-
-<!--
     
-    {% capture ingredientQte }
-        <span class="ingredient-qte-fixed" data-originalValue="{ingredient.qte}">
-            {ingredient.qte}
-        </span>
-    {% endcapture }
+    const dispatch = createEventDispatcher();
 
+	function onQuantityChange(originalQty: number, e: any) {
 
-    {#if  ingredient.variable == true }
-        {% capture ingredientQte }
-            <input class="ingredient-qte-variable" 
-                    type="number" 
-                    data-varianteId="{recipeId}"
-                    data-originalValue="{ ingredient.qte }"
-                    value="{ingredient.qte}"
-                    min="1"
-            />
-        {% endcapture }
-    {/if}
+        const newQty: number = +e.target.value;
 
--->
+        console.debug(`Firing quantityChange event ${originalQty} => ${newQty}`);
+
+		dispatch('quantityChange', {
+			originalQty: originalQty,
+            newQty: newQty
+		});
+	}
+</script>
 
 <li itemprop="recipeIngredient">
 
     {#if ingredient.lien }
-        <a href="{ ingredient.lien }">{ ingredient.nom }</a> {displayQuantity()}
+        <a href="{ ingredient.lien }">{ ingredient.nom }</a> 
     {:else}
-        { ingredient.nom } {displayQuantity()}
+        { ingredient.nom }
     {/if}
+
+    {#if ingredient.variable === true }
+
+        <input class="ingredient-qte-variable" 
+            type="number" 
+            value="{ingredient.qte}"
+            min="1"
+            on:input={e => onQuantityChange(ingredient.qte, e)}
+        />
+    {:else if ingredient.qte }
+        : {ingredient.updatedQty || ingredient.qte} {ingredient.unite || ''}
+    {/if}
+    
 </li>
