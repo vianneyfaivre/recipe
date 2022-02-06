@@ -50,6 +50,5 @@ You can run the newly built app with `npm run start`. This uses [sirv](https://g
     - `qte` into `qty`
     - `lien` into `link`
     - `unite` into `unit`
-    - `unite` into `unit`
     - `etapes` into `steps`
     - `variantes` into `variations`
