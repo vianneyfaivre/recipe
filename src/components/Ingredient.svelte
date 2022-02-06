@@ -31,7 +31,7 @@
 
         <input class="ingredient-qty-variable" 
             type="number" 
-            value="{ingredient.qty}"
+            value="{ingredient.updatedQty || ingredient.qty}"
             min="1"
             on:input={e => onQuantityChange(ingredient.qty, e)}
         />

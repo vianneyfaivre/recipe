@@ -29,9 +29,11 @@
         const newYield: number = +((oldYield * newQuantity) / originalQuantity).toFixed(1);
 
         if(!!newYield) {
-            console.debug(`Invalid new yield value "${newYield}"`);
+            console.debug(`Changed yield to "${newYield}"`);
             recipe.updatedYield = newYield;
             return;
+        } else {
+            console.debug(`Invalid yield value ${newYield}`);
         }
 
         // Triggers a refresh of the whole list of ingredients 

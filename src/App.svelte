@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import type { PageDataDTO } from "./model/yaml";
 	import Recipe from "./components/Recipe.svelte";
+	import { fade } from 'svelte/transition';
 
 	export let recipeYaml: string;
 
@@ -43,12 +44,6 @@
 		selectedRecipeId = pageData.recipes.keys().next().value;
 	});
 
-	function onVarianteButtonClick(recipeId: string) {
-
-		console.info(`Selected ${recipeId}`);
-		selectedRecipeId = recipeId;
-	}
-
 </script>
 
 <main>
@@ -68,36 +63,39 @@
 
 		{:else if pageData && selectedRecipeId}
 
-					<header>
-						<h1 class="post-title p-name">{pageData.title}</h1>
-					</header>
+			<header>
+				<h1 class="post-title p-name">{pageData.title}</h1>
+			</header>
+		
+			<div class="post-content e-content">
+		
+				<div class="variations-tabs">
 				
-					<div class="post-content e-content">
-				
-						<div class="variations-tabs">
-						
-							{#each [...pageData.recipes] as [recipeId, recipe]}
-								<button 
-									class="variations-btn" 
-									class:active={recipeId === selectedRecipeId}
-									on:click={e => onVarianteButtonClick(recipeId)}
-								>
-									{recipeId}
-								</button>
-							{/each}
+					{#each [...pageData.recipes] as [recipeId, recipe]}
+						<button 
+							class="variations-btn" 
+							class:active={recipeId === selectedRecipeId}
+							on:click={e => selectedRecipeId = recipeId}
+						>
+							{recipeId}
+						</button>
+					{/each}
 
+				</div>
+
+				{#each [...pageData.recipes] as [recipeId, recipe]}
+
+					{#if recipeId === selectedRecipeId}
+
+						<div transition:fade="{{ duration: 300 }}">
+							<Recipe {pageData} {recipeId} {recipe} />
 						</div>
 
-						{#each [...pageData.recipes] as [recipeId, recipe]}
-
-							<div class:hidden={recipeId !== selectedRecipeId}>
-								<Recipe {pageData} {recipeId} {recipe} />
-							</div>
-						
-						{/each}
+					{/if}
 				
-					</div>
-
+				{/each}
+		
+			</div>
 
 		{:else}
 
