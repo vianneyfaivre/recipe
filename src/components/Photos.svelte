@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { RecipeDTO } from "./model";
-    import { ImageDTO } from "./utils";
+    import type { RecipeDTO } from "../model/yaml";
+    import { ImageDTO } from "../model/pictures";
     
     export let recipeId: string;
     export let recipe: RecipeDTO;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { VariationDTO } from "./model";
+    import type { VariationDTO } from "../model/yaml";
     
     export let variations: VariationDTO[];
 </script>

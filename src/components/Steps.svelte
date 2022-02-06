@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { PageDataDTO, RecipeDTO } from "./model";
+    import type { PageDataDTO, RecipeDTO } from "../model/yaml";
     
     export let pageData: PageDataDTO;
     export let recipeId: string;

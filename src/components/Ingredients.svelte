@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { RecipeDTO } from "./model";
+    import type { RecipeDTO } from "../model/yaml";
     import Ingredient from "./Ingredient.svelte";
     
     export let recipeId: string; 

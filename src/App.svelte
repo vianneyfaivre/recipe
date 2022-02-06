@@ -1,8 +1,8 @@
 <script lang="ts">
 	import * as jsyaml from "js-yaml";
 	import { onMount } from 'svelte';
-	import type { PageDataDTO } from "./model";
-	import Recipe from "./Recipe.svelte";
+	import type { PageDataDTO } from "./model/model";
+	import Recipe from "./components/Recipe.svelte";
 
 	export let recipeYaml: string;
 
