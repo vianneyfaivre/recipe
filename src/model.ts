@@ -1,23 +1,27 @@
-export class PageData {
+/*
+ * Can't use default values on attributes because of the use of jsyaml
+ */
+
+export class PageDataDTO {
 		
     readonly title: string;
     readonly withYeast: boolean;
     readonly preconditions: string[];
-    readonly recettes: Map<string, Recipe>;
-    readonly notes: string[] | Note[];
-    readonly variantes: Variante[];
+    readonly recettes: Map<string, RecipeDTO>;
+    readonly notes: string[] | NoteDTO[];
+    readonly variantes: VariationDTO[];
 }
 
-export class Recipe {
+export class RecipeDTO {
 
     readonly yield?: number;
     readonly yieldType?: string;
-    readonly ingredients: Ingredients[];
+    readonly ingredients: IngredientDTO[];
     readonly preconditions?: string[];
-    readonly etapes: Step[];
+    readonly etapes: StepDTO[];
 }
 
-export class Ingredients {
+export class IngredientDTO {
 
     readonly nom: string;
     readonly qte?: number;
@@ -26,26 +30,26 @@ export class Ingredients {
     readonly lien?: string;
 }
 
-export class Step {
+export class StepDTO {
 
     readonly label: string;
-    readonly emoji: string = '📜';
-    readonly details: string | StepDetail[];
+    readonly emoji: string;
+    readonly details: string | StepDetailDTO[];
 }
 
-export class StepDetail {
+export class StepDetailDTO {
 
     readonly label: string;
     readonly link: string;
 }
 
-export class Note {
+export class NoteDTO {
 
     readonly label: string;
     readonly link?: string;
 }
 
-export class Variante {
+export class VariationDTO {
 
     readonly label: string;
     readonly todo: boolean;
