@@ -6,8 +6,6 @@
     export let recipe: RecipeDTO;
 </script>
 
-
-
 <h4 id="{recipeId}-title" class="variante-title">
     🥕 Ingrédients 
 

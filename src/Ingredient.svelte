@@ -2,6 +2,14 @@
     import type { IngredientDTO } from "./model";
     
     export let ingredient: IngredientDTO;
+
+    function displayQuantity(): string {
+
+        if(!!ingredient.qte) {
+            return `: ${ingredient.qte} ${ingredient.unite || ''}`;
+        }
+        return '';
+    }
 </script>
 
 <!--
@@ -28,19 +36,10 @@
 -->
 
 <li itemprop="recipeIngredient">
-    {#if ingredient.qte }
 
-        {#if ingredient.lien }
-            <a href="{ ingredient.lien }">{ ingredient.nom }</a> : { ingredient.qte } { ingredient.unite || '' }
-        {:else}
-            { ingredient.nom } : { ingredient.qte } { ingredient.unite || '' }
-        {/if}
+    {#if ingredient.lien }
+        <a href="{ ingredient.lien }">{ ingredient.nom }</a> {displayQuantity()}
     {:else}
-        
-        {#if ingredient.lien }
-            <a href="{ ingredient.lien }">{ ingredient.nom }</a>
-        {:else}
-            { ingredient.nom }
-        {/if}
+        { ingredient.nom } {displayQuantity()}
     {/if}
 </li>
