@@ -21,6 +21,7 @@ export class RecipeDTO {
     readonly etapes: StepDTO[];
 
     updatedYield?: number;
+    pictures?: number;
 }
 
 export class IngredientDTO {

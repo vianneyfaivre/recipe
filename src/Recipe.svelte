@@ -1,7 +1,9 @@
 <script lang="ts">
+import { time_ranges_to_array } from "svelte/internal";
 import Ingredients from "./Ingredients.svelte";
 import type { PageDataDTO, RecipeDTO } from "./model";
 import Notes from "./Notes.svelte";
+import Photos from "./Photos.svelte";
 import Steps from "./Steps.svelte";
 import Variations from "./Variations.svelte";
 
@@ -32,6 +34,8 @@ export let recipe: RecipeDTO;
         <Notes notes={pageData.notes} />
 
         <Variations variations={pageData.variantes} />
+
+        <Photos {recipeId} {recipe} title={pageData.title} />
 
     </div>
     
