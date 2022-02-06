@@ -18,23 +18,24 @@
                 return;
             }
 
-            const ingredientNewQty: number = +((ingredientOldQty * newQuantity) / originalQuantity).toFixed(2);
+            const ingredientNewQty: number = +((ingredientOldQty * newQuantity) / originalQuantity).toFixed(1);
             console.debug(`Changed "${ingredient.nom}" from ${ingredientOldQty} to ${ingredientNewQty}`);
 
             ingredient.updatedQty = ingredientNewQty;
-        })
+        });
+
+        // Update recipe yield
+        const oldYield: number = recipe.yield;
+        const newYield: number = +((oldYield * newQuantity) / originalQuantity).toFixed(1);
+
+        if(!!newYield) {
+            console.debug(`Invalid new yield value "${newYield}"`);
+            recipe.updatedYield = newYield;
+            return;
+        }
 
         // Triggers a refresh of the whole list of ingredients 
         recipe = recipe;
-
-        // Update recipe yield
-        /*recipeYield = document.getElementById("#{varianteId}-yield")
-        if recipeYield
-            oldYield = +recipeYield.getAttribute("data-originalValue")
-            newYield = ((oldYield * variableNewValue) / variableOriginalValue).toFixed(2)
-            if !isNaN(newYield)
-            recipeYield.innerHTML = newYield
-        */
     }
   
 </script>
@@ -45,7 +46,9 @@
     {#if recipe.yield}
         pour 
         <span itemprop="recipeYield">
-            <span id="{recipeId}-yield" data-originalValue="{ recipe.yield }">{ recipe.yield }</span>
+            <span id="{recipeId}-yield" data-originalValue="{ recipe.yield }">
+                { recipe.updatedYield || recipe.yield }
+            </span>
             {recipe.yieldType || ''}
         </span>
     {/if}

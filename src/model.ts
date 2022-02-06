@@ -19,6 +19,8 @@ export class RecipeDTO {
     readonly ingredients: IngredientDTO[];
     readonly preconditions?: string[];
     readonly etapes: StepDTO[];
+
+    updatedYield?: number;
 }
 
 export class IngredientDTO {
@@ -29,7 +31,7 @@ export class IngredientDTO {
     readonly variable?: boolean;
     readonly lien?: string;
 
-    updatedQty: number;
+    updatedQty?: number;
 }
 
 export class StepDTO {
