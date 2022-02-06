@@ -7,9 +7,9 @@ export class PageDataDTO {
     readonly title: string;
     readonly withYeast: boolean;
     readonly preconditions: string[];
-    readonly recettes: Map<string, RecipeDTO>;
+    readonly recipes: Map<string, RecipeDTO>;
     readonly notes: string[] | NoteDTO[];
-    readonly variantes: VariationDTO[];
+    readonly variations: VariationDTO[];
 }
 
 export class RecipeDTO {
@@ -18,7 +18,7 @@ export class RecipeDTO {
     readonly yieldType?: string;
     readonly ingredients: IngredientDTO[];
     readonly preconditions?: string[];
-    readonly etapes: StepDTO[];
+    readonly steps: StepDTO[];
 
     updatedYield?: number;
     pictures?: number;
@@ -26,11 +26,11 @@ export class RecipeDTO {
 
 export class IngredientDTO {
 
-    readonly nom: string;
-    readonly qte?: number;
-    readonly unite?: string;
+    readonly label: string;
+    readonly qty?: number;
+    readonly unit?: string;
     readonly variable?: boolean;
-    readonly lien?: string;
+    readonly link?: string;
 
     updatedQty?: number;
 }

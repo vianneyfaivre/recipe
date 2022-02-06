@@ -5,37 +5,37 @@ preconditions:
   - global pre I
   - global pre II
 
-recettes:
+recipes:
   Recette 1:
     yield: 18
     yieldType: units
     pictures: 2
     ingredients:
-      - nom: variable
-        qte: 350
-        unite: mL
+      - label: variable
+        qty: 350
+        unit: mL
         variable: true
-      - nom: no unit
-        qte: 4
-      - nom: grams
-        qte: 100
-        unite: gr
-      - nom: just name
-      - nom: link with qty
-        lien: /link/just-name
-        qte: 1
-      - nom: link with qty and unit
-        lien: /link/just-name
-        qte: 1
-        unite: liter
-      - nom: link without qty
-        lien: /link/without-qty
-      - nom: link with anchor
-        lien: /link/with#anchor
+      - label: no unit
+        qty: 4
+      - label: grams
+        qty: 100
+        unit: gr
+      - label: just name
+      - label: link with qty
+        link: /link/just-name
+        qty: 1
+      - label: link with qty and unit
+        link: /link/just-name
+        qty: 1
+        unit: liter
+      - label: link without qty
+        link: /link/without-qty
+      - label: link with anchor
+        link: /link/with#anchor
     preconditions:
       - pre 1
       - pre 2
-    etapes:
+    steps:
       - label: Steps I
         details:
           - Step I-1
@@ -50,9 +50,9 @@ recettes:
   Recette 2:
     yield: 2
     ingredients:
-      - nom: fixed
-        qte: 350
-    etapes:
+      - label: fixed
+        qty: 350
+    steps:
       - label: Steps I
         details:
           - Step I-1
@@ -67,7 +67,7 @@ notes:
   - label: Note with link
     link: https://vianneyfaivre.com
 
-variantes:
+variations:
   - label: variante 1
     todo: false
   - label: variante 2

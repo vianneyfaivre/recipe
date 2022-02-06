@@ -45,3 +45,11 @@ You can run the newly built app with `npm run start`. This uses [sirv](https://g
   - If the recipe has pictures
     - add the property `pictures` on each variation of the recipe
     - make sure that the pictures are named the right way: `assets/images/cooking/recipes/{title}/{recipeId}-{count}.jpg`
+  - Rename some properties
+    - `nom` into `label`
+    - `qte` into `qty`
+    - `lien` into `link`
+    - `unite` into `unit`
+    - `unite` into `unit`
+    - `etapes` into `steps`
+    - `variantes` into `variations`

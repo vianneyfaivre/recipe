@@ -21,22 +21,22 @@
 
 <li itemprop="recipeIngredient">
 
-    {#if ingredient.lien }
-        <a href="{ ingredient.lien }">{ ingredient.nom }</a> 
+    {#if ingredient.link }
+        <a href="{ ingredient.link }">{ ingredient.label }</a> 
     {:else}
-        { ingredient.nom }
+        { ingredient.label }
     {/if}
 
     {#if ingredient.variable === true }
 
-        <input class="ingredient-qte-variable" 
+        <input class="ingredient-qty-variable" 
             type="number" 
-            value="{ingredient.qte}"
+            value="{ingredient.qty}"
             min="1"
-            on:input={e => onQuantityChange(ingredient.qte, e)}
+            on:input={e => onQuantityChange(ingredient.qty, e)}
         />
-    {:else if ingredient.qte }
-        : {ingredient.updatedQty || ingredient.qte} {ingredient.unite || ''}
+    {:else if ingredient.qty }
+        : {ingredient.updatedQty || ingredient.qty} {ingredient.unit || ''}
     {/if}
     
 </li>

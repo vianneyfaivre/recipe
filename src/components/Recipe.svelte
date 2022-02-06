@@ -21,7 +21,7 @@ export let recipe: RecipeDTO;
         </div>
 
 
-        <div class="etapes-panel"> 
+        <div class="steps-panel"> 
 
             <Steps {pageData} {recipeId} {recipe} /> 
         </div> 
@@ -32,7 +32,7 @@ export let recipe: RecipeDTO;
 
         <Notes notes={pageData.notes} />
 
-        <Variations variations={pageData.variantes} />
+        <Variations variations={pageData.variations} />
 
         <Photos {recipeId} {recipe} title={pageData.title} />
 

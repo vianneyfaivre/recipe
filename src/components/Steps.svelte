@@ -44,9 +44,9 @@
     </div>
 {/if}
 
-<div id="{recipeId}-etapes" class="variante-etapes">
+<div id="{recipeId}-steps" class="variante-steps">
 
-    {#each Object.values(recipe.etapes) as step}
+    {#each Object.values(recipe.steps) as step}
         <h4>{step.emoji || '📜'} {step.label}</h4>
         <ol>
         {#each Object.values(step.details) as detail }

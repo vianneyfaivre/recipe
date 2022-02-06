@@ -29,7 +29,7 @@
 		}
 
 		// Convert object to Map
-		json.recettes = new Map(Object.entries(json.recettes));
+		json.recipes = new Map(Object.entries(json.recipes));
 
 		return json;
 	}
@@ -40,7 +40,7 @@
 		pageData = await loadYaml(recipeYaml); 
 
 		// Select the first recipe by default
-		selectedRecipeId = pageData.recettes.keys().next().value;
+		selectedRecipeId = pageData.recipes.keys().next().value;
 	});
 
 	function onVarianteButtonClick(recipeId: string) {
@@ -74,11 +74,11 @@
 				
 					<div class="post-content e-content">
 				
-						<div class="variantes-tabs">
+						<div class="variations-tabs">
 						
-							{#each [...pageData.recettes] as [recipeId, recipe]}
+							{#each [...pageData.recipes] as [recipeId, recipe]}
 								<button 
-									class="variantes-btn" 
+									class="variations-btn" 
 									class:active={recipeId === selectedRecipeId}
 									on:click={e => onVarianteButtonClick(recipeId)}
 								>
@@ -88,7 +88,7 @@
 
 						</div>
 
-						{#each [...pageData.recettes] as [recipeId, recipe]}
+						{#each [...pageData.recipes] as [recipeId, recipe]}
 
 							<div class:hidden={recipeId !== selectedRecipeId}>
 								<Recipe {pageData} {recipeId} {recipe} />
