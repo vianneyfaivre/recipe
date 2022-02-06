@@ -175,6 +175,77 @@
 						</div>
 					
 						<div class="bottom-panel"> <!-- BOTTOM -->
+
+							{#if recipes.notes }
+								<h4>📝 Notes</h4>
+								<ul>
+								{#each recipes.notes as note }
+
+									{#if typeof note === "string" }
+										<li>{ note }</li>
+									{:else}
+										<li><a href="{ note.link }">{ note.label }</a></li>
+									{/if}
+								{/each}
+								</ul>
+							{/if}
+
+							{#if recipes.variantes }
+								<h4>💡 Variantes</h4>
+								<ul class="no-dots">
+								{#each recipes.variantes as variante }
+									<li>
+										{#if variante.todo }
+											<input type="checkbox" />
+										{:else}
+											<input type="checkbox" checked="checked" />
+										{/if}
+										
+										{ variante.label }
+									</li>
+								{/each}
+								</ul>
+							{/if}
+
+							<!--
+							<div id="{recette[0]}-pictures" class="variante-pictures">
+
+								<h4>📷 Photos</h4>
+
+								<div class="recipe-pictures">
+
+									
+									{% assign pictures = site.static_files | where: "isRecipePic", true }
+
+									{#each picture in pictures }
+
+										{% assign name = picture.name | split: '.' }
+
+										{% assign nameMatches = false }
+										{#if recette[0] == 'Classique' }
+											{% assign nameMatches = true }
+										{% elsif name[0] contains recette[0] }
+											{% assign nameMatches = true }
+										{/if}
+										
+
+										{#if picture.path contains page.title and nameMatches == true }
+										
+											<img 
+												src="{ picture.path }" 
+												itemprop='image'
+												class="recipe-picture" 
+												width="100" 
+												alt="{ name[0] }" 
+												title="{ name[0] }" />
+										{/if}
+
+									{/each}
+
+								</div>
+
+							</div>-->
+
 						</div> <!-- BOTTOM -->
 						
 					</div>
