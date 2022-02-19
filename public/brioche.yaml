@@ -9,6 +9,8 @@ utensils:
   - pinceau
 recipes:
   Standard:
+    yield: 10
+    yieldType: parts
     pictures: 0
     utensils:
       - moule-cake

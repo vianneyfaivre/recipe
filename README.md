@@ -52,3 +52,10 @@ You can run the newly built app with `npm run start`. This uses [sirv](https://g
     - `unite` into `unit`
     - `etapes` into `steps`
     - `variantes` into `variations`
+
+## Openfoodfacts IDs
+
+- Farine T45: 3068110702235 - 
+
+https://glycemic-index.net/wheat-flour-white-unenriched/
+https://montignac.com/rechercher-l-index-glycemique-d-un-aliment/#tab_
