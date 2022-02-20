@@ -2,9 +2,15 @@
     import Recipe from "../components/Recipe.svelte";
 	import { fade } from 'svelte/transition';
     import type { PageDataDTO } from "../model/yaml";
+    import { setAnchor } from "../util/anchor-manager";
 
     export let pageData: PageDataDTO;
     export let selectedRecipeId: string;
+
+    function onVariationClick(recipeId: string): void {
+        selectedRecipeId = recipeId;
+        setAnchor(recipeId);
+    }
 </script>
 
 <header>
@@ -19,7 +25,7 @@
             <button 
                 class="variantes-btn" 
                 class:active={recipeId === selectedRecipeId}
-                on:click={_ => selectedRecipeId = recipeId}
+                on:click={_ => onVariationClick(recipeId)}
             >
                 {recipeId}
             </button>
