@@ -17,7 +17,7 @@ export let recipe: RecipeDTO;
 
         <div class="ingredients-panel">
 
-            <Ingredients {recipeId} {recipe} />
+            <Ingredients {recipe} />
         </div>
 
 

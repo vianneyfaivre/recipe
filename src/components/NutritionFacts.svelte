@@ -45,13 +45,13 @@
                     return [key, nutrition] as [string, NutritionFactsDTO];
                 });
 
-        const ingredientsNutrition: Map<string, NutritionFactsDTO> = new Map(entries);
-
         // All ingredients must be in the Nutrition DB
-        const eligible = ingredientsNutrition.has(undefined) === false; 
+        const eligible = entries.some(e => !!e) === false; 
         if(!eligible) {
             return;
         }
+
+        const ingredientsNutrition: Map<string, NutritionFactsDTO> = new Map(entries);
 
         // Calculate recipe nutrition facts
         return recipe

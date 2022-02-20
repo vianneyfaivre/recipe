@@ -71,6 +71,8 @@ recipes:
         - Laisser ressuer 30 minutes sur une grille
   Gâche:
     pictures: 0
+    yield: 10
+    yieldType: parts
     utensils:
       - moule-cake
     ingredients: 
@@ -135,6 +137,8 @@ recipes:
         - Cuire 35 minutes à 150°C
         - Laisser ressuer 30 minutes sur une grille
   Vendéenne:
+    yield: 10
+    yieldType: parts
     pictures: 3
     utensils:
       - moule-cake
@@ -209,6 +213,8 @@ recipes:
         - Cuire 15 min à 150°C
         - Laisser ressuer 30 minutes sur une grille
   Stollen:
+    yield: 10
+    yieldType: parts
     pictures: 2
     utensils:
       - plaque-cuisson
@@ -266,6 +272,8 @@ recipes:
         - Saupoudrer de sucre glace
         - Laisser ressuer 30 minutes sur une grille
   Pulla:
+    yield: 10
+    yieldType: parts
     pictures: 2
     utensils:
       - moule-cake

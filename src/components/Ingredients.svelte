@@ -1,10 +1,9 @@
 <script lang="ts">
     import type { RecipeDTO } from "../model/yaml";
     import Ingredient from "./Ingredient.svelte";
-import NutritionFacts from "./NutritionFacts.svelte";
+    import NutritionFacts from "./NutritionFacts.svelte";
     import Yield from "./Yield.svelte";
     
-    export let recipeId: string; 
     export let recipe: RecipeDTO;
 
     function updateIngredientsQuantities(originalQuantity: number, newQuantity: number) {
