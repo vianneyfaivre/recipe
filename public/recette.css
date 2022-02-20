@@ -1,0 +1,21 @@
+.recette { /* Specific for the recipes with multiple variantes */ /* Mobile view */ /* Specific for 2014-01-01-crepes.html */ }
+.recette header { border-bottom: 1px solid #e8e8e8; margin-bottom: 15px; }
+.recette h1 { text-align: center; margin-bottom: 25px; }
+.recette h3.variante-subtitles { text-align: center; }
+.recette .recette-whole { border-bottom: 1px solid #e8e8e8; padding-bottom: 15px; margin-bottom: 15px; display: flex; flex-flow: row nowrap; }
+.recette .ingredients-panel { padding-right: 10px; flex: 0 1 auto; white-space: nowrap; }
+.recette .etapes-panel { border-left: 1px solid #e8e8e8; padding-left: 10px; flex: 1 1 auto; }
+.recette .no-dots { list-style-type: none; margin-left: 10px; }
+.recette #timer-countdown { text-align: center; border: 0px; font-size: 20px; }
+.recette #timer-action { cursor: pointer; font-size: 14px; }
+.recette .recipe-pictures { display: flex; flex-wrap: wrap; flex-shrink: 0; align-items: flex-start; }
+.recette .recipe-pictures .recipe-picture { padding: 5px; border-radius: 10px; transition: width 500ms; cursor: pointer; }
+.recette .variantes-tabs { overflow: hidden; border-bottom: 1px solid #e8e8e8; margin-bottom: 15px; margin-top: -15px; }
+.recette .variantes-tabs button { background-color: inherit; border: none; cursor: pointer; padding: 10px; font-size: 13px; transition: 0.3s; }
+.recette .variantes-tabs button:hover { background-color: #ddd; }
+.recette .variantes-tabs button.active { background-color: #e8e8e8; }
+.recette .ingredient-qte-variable { width: 4em; }
+@media all and (max-width: 700px) { .recette .recette-whole { flex-direction: column; }
+  .recette .etapes-panel { border-left: 0; padding-left: 0px; margin: 0px; flex: 1 1 auto; } }
+.recette.recette-crepe .crepes-params { text-align: center; font-size: 20px; }
+.recette.recette-crepe .crepes-params input, .recette.recette-crepe .crepes-params select { text-align: center; font-size: 18px; border-radius: 3px; border: 1px solid #ccc; }

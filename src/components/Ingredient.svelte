@@ -29,14 +29,16 @@
 
     {#if ingredient.variable === true }
 
-        <input class="ingredient-qty-variable" 
+        <input class="ingredient-qte-variable" 
             type="number" 
             value="{ingredient.updatedQty || ingredient.qty}"
             min="1"
             on:input={e => onQuantityChange(ingredient.qty, e)}
         />
+
     {:else if ingredient.qty }
-        : {ingredient.updatedQty || ingredient.qty} {ingredient.unit || ''}
+        : {ingredient.updatedQty || ingredient.qty}
     {/if}
     
+    {ingredient.unit || ''}
 </li>

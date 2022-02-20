@@ -21,7 +21,7 @@ export let recipe: RecipeDTO;
         </div>
 
 
-        <div class="steps-panel"> 
+        <div class="etapes-panel"> 
 
             <Steps {pageData} {recipeId} {recipe} /> 
         </div> 

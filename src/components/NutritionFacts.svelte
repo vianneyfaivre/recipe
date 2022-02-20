@@ -46,7 +46,7 @@
                 });
 
         // All ingredients must be in the Nutrition DB
-        const eligible = entries.some(e => !!e) === false; 
+        const eligible = entries.every(e => e !== undefined ); 
         if(!eligible) {
             return;
         }

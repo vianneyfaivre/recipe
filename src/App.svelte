@@ -69,11 +69,11 @@
 		
 			<div class="post-content e-content">
 		
-				<div class="variations-tabs">
+				<div class="variantes-tabs">
 				
 					{#each [...pageData.recipes] as [recipeId, recipe]}
 						<button 
-							class="variations-btn" 
+							class="variantes-btn" 
 							class:active={recipeId === selectedRecipeId}
 							on:click={e => selectedRecipeId = recipeId}
 						>
