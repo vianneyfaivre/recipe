@@ -18,6 +18,7 @@
 		try {
 			pageData = await loadYaml(recipeYaml); 
 		} catch(e) {
+			console.error(e);
 			error = e;
 			return;
 		}
@@ -34,6 +35,8 @@
 
 		// Select the first recipe by default
 		selectedRecipeId = selectedRecipeId || pageData.recipes.keys().next().value;
+
+		console.debug("Recipe initialized!");
 	});
 
 </script>

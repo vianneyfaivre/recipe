@@ -37,7 +37,7 @@
 
         {#if recipeId === selectedRecipeId}
 
-            <div transition:fade="{{ duration: 300 }}">
+            <div in:fade="{{ duration: 500 }}">
                 <Recipe {pageData} {recipeId} {recipe} />
             </div>
 

@@ -25,17 +25,18 @@ cp public/build/* /Users/vianneyfaivre/IdeaProjects/vianneyfaivre.github.io/asse
 
 ## Migrate Recipe v1 to Recipe v2
 
-1. Copy the recipe `.md` file to the folder `assets/recipes/`
+1. Copy the recipe `.md` file to the folder `assets/recettes/`
 2. Change the file extension to `.yaml`
 3. Edit the `.md` file
   - Remove the recipe data
-  - Change the `layout` to `recipe-v2`
+  - Change the `layout` to `recette-v2`
 4. Edit the `.yaml` file
   - Remove the `---` 
   - If the recipe has pictures
     - add the property `pictures` on each variation of the recipe
     - make sure that the pictures are named the right way: `assets/images/cooking/recipes/{title}/{recipeId}-{count}.jpg`
   - Rename some properties
+    - `recettes` into `recipes`
     - `nom` into `label`
     - `qte` into `qty`
     - `lien` into `link`
