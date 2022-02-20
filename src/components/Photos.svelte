@@ -17,10 +17,7 @@
         images.push(new ImageDTO(imagePath));
     }
 
-
     function onPictureClick(clickedImage: ImageDTO) {
-
-        const alreadyEnlarged: boolean = clickedImage.width > 100;
 
         if(!clickedImage.isMaximized()) {
 
@@ -53,7 +50,7 @@
                     width={image.width}
                     alt={title}
                     title={title}
-                    on:click={e => onPictureClick(image)} 
+                    on:click={_ => onPictureClick(image)} 
                 />
             {/each}
             

@@ -9,7 +9,7 @@
 
 	let pageData: PageDataDTO;
 	let selectedRecipeId: string;
-	let error;
+	let error: string;
 
 	async function loadYaml(path: string) {
 
@@ -21,7 +21,7 @@
 		}
 
 		const yaml = await response.text();
-		let json;
+		let json: any;
 		try {
 			json = await jsyaml.load(yaml);
 		} catch(e) {
@@ -71,11 +71,11 @@
 		
 				<div class="variantes-tabs">
 				
-					{#each [...pageData.recipes] as [recipeId, recipe]}
+					{#each [...pageData.recipes] as [recipeId, _]}
 						<button 
 							class="variantes-btn" 
 							class:active={recipeId === selectedRecipeId}
-							on:click={e => selectedRecipeId = recipeId}
+							on:click={_ => selectedRecipeId = recipeId}
 						>
 							{recipeId}
 						</button>
