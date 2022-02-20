@@ -2,8 +2,8 @@
 	import * as jsyaml from "js-yaml";
 	import { onMount } from 'svelte';
 	import type { PageDataDTO } from "./model/yaml";
-	import Recipe from "./components/Recipe.svelte";
-	import { fade } from 'svelte/transition';
+	import Error from "./pages/Error.svelte";
+	import WholeRecipe from "./pages/WholeRecipe.svelte";
 
 	export let recipeYaml: string;
 
@@ -40,8 +40,18 @@
 		// Load yaml data
 		pageData = await loadYaml(recipeYaml); 
 
+		// Extract the selected recipe from the URL anchor (if any)
+		const anchor = decodeURI(window.location.hash.split("#")[1]);
+  		if(anchor) {
+			for(const recipeId of pageData.recipes.keys()) {
+				if(recipeId === anchor) {
+					selectedRecipeId = recipeId;
+				}
+			}
+		}
+
 		// Select the first recipe by default
-		selectedRecipeId = pageData.recipes.keys().next().value;
+		selectedRecipeId = selectedRecipeId || pageData.recipes.keys().next().value;
 	});
 
 </script>
@@ -51,51 +61,12 @@
 	<article class="post h-entry recette">
 
 		{#if !!error}
-
-			<header>
-				<h1 class="post-title p-name">Erreur !</h1>
-			</header>
-
-			<div class="post-content e-content">
-				<p>Une erreur est survenue.</p>
-				<p>{error}</p>
-			</div>
+			
+			<Error {error} />
 
 		{:else if pageData && selectedRecipeId}
 
-			<header>
-				<h1 class="post-title p-name">{pageData.title}</h1>
-			</header>
-		
-			<div class="post-content e-content">
-		
-				<div class="variantes-tabs">
-				
-					{#each [...pageData.recipes] as [recipeId, _]}
-						<button 
-							class="variantes-btn" 
-							class:active={recipeId === selectedRecipeId}
-							on:click={_ => selectedRecipeId = recipeId}
-						>
-							{recipeId}
-						</button>
-					{/each}
-
-				</div>
-
-				{#each [...pageData.recipes] as [recipeId, recipe]}
-
-					{#if recipeId === selectedRecipeId}
-
-						<div transition:fade="{{ duration: 300 }}">
-							<Recipe {pageData} {recipeId} {recipe} />
-						</div>
-
-					{/if}
-				
-				{/each}
-		
-			</div>
+			<WholeRecipe {pageData} {selectedRecipeId} />
 
 		{:else}
 
