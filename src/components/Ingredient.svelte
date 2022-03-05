@@ -24,11 +24,10 @@
     {#if ingredient.link }
         <a href="{ ingredient.link }">{ ingredient.label }</a> 
     {:else}
-        { ingredient.label }
+        { ingredient.label } : 
     {/if}
 
     {#if ingredient.variable === true }
-
         <input class="ingredient-qte-variable" 
             type="number" 
             value="{ingredient.updatedQty || ingredient.qty}"
@@ -37,7 +36,7 @@
         />
 
     {:else if ingredient.qty }
-        : {ingredient.updatedQty || ingredient.qty}
+        {ingredient.updatedQty || ingredient.qty}
     {/if}
     
     {ingredient.unit || ''}
