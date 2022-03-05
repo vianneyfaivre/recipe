@@ -1,7 +1,8 @@
 <script lang="ts">
     import { nutritionDB, NutritionFactsDTO, ViscosityDTO } from "../data/nutrition";
-    import type { IngredientDTO, RecipeDTO } from "../model/yaml";
+    import type { IngredientDTO, PageDataDTO, RecipeDTO } from "../model/yaml";
 
+    export let pageData: PageDataDTO;
     export let recipe: RecipeDTO;
 
     const nutritionFactsValid: boolean = computeRecipeNutrition(recipe);
@@ -19,8 +20,11 @@
         // Get recipe overall nutrition facts
         recipeNutritionFacts = getNutritionFacts(recipe);
 
-        // Compute hydration ratio 
-        hydrationRatio = computeHydrationRatio(recipe);
+        if(pageData.hydrationRatioEnabled === true) {
+
+            // Compute hydration ratio 
+            hydrationRatio = computeHydrationRatio(recipe);
+        }
     }
 
     function isEgg(ingredient: IngredientDTO): boolean {
@@ -159,7 +163,7 @@
 {#if hydrationRatio }
 
     <h4 class="variante-title">
-        🌊 Taux d'hydratation: {hydrationRatio}%
+        🍞 Taux d'hydratation : {hydrationRatio}%
     </h4>
 
 {/if}

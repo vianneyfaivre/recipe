@@ -1,5 +1,6 @@
 title: Brioche
 withYeast: true
+hydrationRatioEnabled: true
 utensils:
   - corne
   - coupe-pate
@@ -85,7 +86,7 @@ recipes:
         unit: gr 
       - label: oeufs
         qty: 2
-      - label: crème liquide
+      - label: crème fleurette
         qty: 80
         unit: gr
       - label: farine T55
@@ -151,7 +152,7 @@ recipes:
         unit: gr 
       - label: oeufs
         qty: 2
-      - label: crème liquide
+      - label: crème fleurette
         qty: 20
         unit: gr
       - label: vanille liquide

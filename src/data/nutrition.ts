@@ -44,11 +44,18 @@ const beurre = new NutritionFactsDTO(713, 0.6, 80, 0.8, 2, ViscosityDTO.LIQUID);
 // 3068110361869
 const levureSeche = new NutritionFactsDTO(325, 18, 7, 35, 0.51, ViscosityDTO.SOLID);
 
+// 3451790012358
+const cremeFleurette = new NutritionFactsDTO(301, 3.1, 31, 2.3, 0.08, ViscosityDTO.LIQUID);
+
+// Some ingredients has such small quantities that we can ignore them (ex: spices)
+const IGNORE: NutritionFactsDTO = new NutritionFactsDTO(0, 0, 0, 0, 0, ViscosityDTO.NOT_APPLICABLE);
+
 export const nutritionDB = new Map<string, NutritionFactsDTO>();
 
 // lowercase only!!
 nutritionDB.set("farine", farineT45);
 nutritionDB.set("farine t45", farineT45);
+nutritionDB.set("farine t55", farineT45);
 nutritionDB.set("farine blanche", farineT45);
 nutritionDB.set("lait", lait);
 nutritionDB.set("oeufs", oeufs);
@@ -57,3 +64,7 @@ nutritionDB.set("sucre blanc", sucreBlanc);
 nutritionDB.set("beurre", beurre);
 nutritionDB.set("sel", sel);
 nutritionDB.set("levure sèche", levureSeche);
+nutritionDB.set("crème fleurette", cremeFleurette);
+
+// ignored ingredients
+nutritionDB.set("cardamome", IGNORE);

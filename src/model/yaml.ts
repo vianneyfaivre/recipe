@@ -8,6 +8,7 @@ export class PageDataDTO {
 		
     readonly title: string;
     readonly withYeast: boolean;
+    readonly hydrationRatioEnabled: boolean;
     readonly preconditions: string[];
     readonly recipes: Map<string, RecipeDTO>;
     readonly notes: string[] | NoteDTO[];
