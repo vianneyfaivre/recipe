@@ -6,10 +6,6 @@
     export let recipe: RecipeDTO;
 </script>
 
-<h3 class="variante-subtitles" id="{recipeId}-subtitle" itemprop="name"> 
-    🎺 { pageData.title } - { recipeId } 🎺
-</h3>
-
 {#if pageData.preconditions || pageData.withYeast }
     <h4>📜 Préambule</h4>
     

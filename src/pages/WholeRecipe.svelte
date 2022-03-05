@@ -7,6 +7,8 @@
     export let pageData: PageDataDTO;
     export let selectedRecipeId: string;
 
+    const hasVariations: boolean = pageData.recipes.size > 1;
+
     function onVariationClick(recipeId: string): void {
         selectedRecipeId = recipeId;
         setAnchor(recipeId);
@@ -19,19 +21,20 @@
 
 <div class="post-content e-content">
 
-    <div class="variantes-tabs">
-    
-        {#each [...pageData.recipes] as [recipeId, _]}
-            <button 
-                class="variantes-btn" 
-                class:active={recipeId === selectedRecipeId}
-                on:click={_ => onVariationClick(recipeId)}
-            >
-                {recipeId}
-            </button>
-        {/each}
-
-    </div>
+    {#if hasVariations}
+        <div class="variantes-tabs">
+        
+            {#each [...pageData.recipes] as [recipeId, _]}
+                <button 
+                    class="variantes-btn" 
+                    class:active={recipeId === selectedRecipeId}
+                    on:click={_ => onVariationClick(recipeId)}
+                >
+                    {recipeId}
+                </button>
+            {/each}
+        </div>
+    {/if}
 
     {#each [...pageData.recipes] as [recipeId, recipe]}
 
