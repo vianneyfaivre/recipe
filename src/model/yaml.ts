@@ -2,6 +2,8 @@
  * Can't use default values on attributes because of the use of jsyaml
  */
 
+import type { NutritionFactsDTO } from "../data/nutrition";
+
 export class PageDataDTO {
 		
     readonly title: string;
@@ -33,6 +35,8 @@ export class IngredientDTO {
     readonly link?: string;
 
     updatedQty?: number;
+    nutritionFactsPer100gr?: NutritionFactsDTO;
+    nutritionFacts?: NutritionFactsDTO;
 }
 
 export class StepDTO {

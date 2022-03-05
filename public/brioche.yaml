@@ -11,7 +11,7 @@ recipes:
   Standard:
     yield: 10
     yieldType: parts
-    pictures: 0
+    pictures: 6
     utensils:
       - moule-cake
     ingredients: 
