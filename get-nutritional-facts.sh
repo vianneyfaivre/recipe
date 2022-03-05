@@ -29,7 +29,6 @@ do :
     salt=$( cat $destFile | jq '.product | .nutriments | .salt_100g' )
     fib=$( cat $destFile | jq '.product | .nutriments | .fiber_100g' )
 
-
     # Poor's man code generation
     echo "const $name = new NutritionFactsDTO($energy, $carbs, $fat, $prot, $salt, ViscosityDTO.REPLACEME);"
 done

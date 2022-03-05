@@ -47,6 +47,9 @@ const levureSeche = new NutritionFactsDTO(325, 18, 7, 35, 0.51, ViscosityDTO.SOL
 // 3451790012358
 const cremeFleurette = new NutritionFactsDTO(301, 3.1, 31, 2.3, 0.08, ViscosityDTO.LIQUID);
 
+// Ingredients without nutritional facts but that we need to compute the hydration ratio
+const fleurOranger = new NutritionFactsDTO(0, 0, 0, 0, 0, ViscosityDTO.LIQUID);
+
 // Some ingredients has such small quantities that we can ignore them (ex: spices)
 const IGNORE: NutritionFactsDTO = new NutritionFactsDTO(0, 0, 0, 0, 0, ViscosityDTO.NOT_APPLICABLE);
 
@@ -65,6 +68,8 @@ nutritionDB.set("beurre", beurre);
 nutritionDB.set("sel", sel);
 nutritionDB.set("levure sèche", levureSeche);
 nutritionDB.set("crème fleurette", cremeFleurette);
+nutritionDB.set("eau de fleur d'oranger", fleurOranger);
 
 // ignored ingredients
 nutritionDB.set("cardamome", IGNORE);
+nutritionDB.set("vanille liquide", IGNORE);
