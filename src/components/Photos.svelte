@@ -26,10 +26,14 @@
 
             // Maximize clicked picture
             clickedImage.maximize();
-
-            // Trigger a UI refresh
-            images = images;
+        } 
+        // minimize image when clicking on an already maximized image
+        else {
+            clickedImage.minimize();
         }
+
+        // Trigger a UI refresh
+        images = images;
     }
 
 </script>
