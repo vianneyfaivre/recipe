@@ -11,7 +11,7 @@
     <ul class="no-dots">
     {#each variations as variation }
         <li>
-            <input type="checkbox" checked={variation.todo} />
+            <input type="checkbox" checked={!variation.todo} />
             
             { variation.label }
         </li>
