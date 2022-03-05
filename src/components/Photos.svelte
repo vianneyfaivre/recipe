@@ -17,7 +17,7 @@
         images.push(new ImageDTO(imagePath));
     }
 
-    function onPictureClick(clickedImage: ImageDTO) {
+    function onPictureClick(clickedImage: ImageDTO): void {
 
         if(!clickedImage.isMaximized()) {
 
@@ -36,11 +36,15 @@
         images = images;
     }
 
+    function onPictureLoadingError(img: EventTarget): void {
+        img.remove();
+    }
+
 </script>
 
 {#if picturesCount > 0}
 
-    <div id="{recipeId}-pictures" class="variante-pictures">
+    <div class="variante-pictures">
 
         <h4>📷 Photos</h4>
 
@@ -55,6 +59,7 @@
                     alt={title}
                     title={title}
                     on:click={_ => onPictureClick(image)} 
+                    on:error={e => onPictureLoadingError(e.target)}
                 />
             {/each}
             
