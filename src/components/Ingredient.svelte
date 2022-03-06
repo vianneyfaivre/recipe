@@ -25,19 +25,22 @@
         <a href="{ ingredient.link }">{ ingredient.label }</a> 
     {:else}
         { ingredient.label } : 
+
+        {#if ingredient.variable === true }
+        
+            <input class="ingredient-qte-variable" 
+                type="number" 
+                value="{ingredient.updatedQty || ingredient.qty}"
+                min="1"
+                on:input={e => onQuantityChange(ingredient.qty, e)}
+            />
+        {:else if ingredient.qty }
+            {ingredient.updatedQty || ingredient.qty}
+        {:else }
+            à souhait    
+        {/if}
+
     {/if}
 
-    {#if ingredient.variable === true }
-        <input class="ingredient-qte-variable" 
-            type="number" 
-            value="{ingredient.updatedQty || ingredient.qty}"
-            min="1"
-            on:input={e => onQuantityChange(ingredient.qty, e)}
-        />
-
-    {:else if ingredient.qty }
-        {ingredient.updatedQty || ingredient.qty}
-    {/if}
-    
     {ingredient.unit || ''}
 </li>
