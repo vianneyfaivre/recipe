@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { nutritionDB, NutritionFactsDTO, ViscosityDTO } from "../data/nutrition";
+    import { nutritionDB, NutritionFactsDTO, HydrationDTO } from "../data/nutrition";
     import type { IngredientDTO, PageDataDTO, RecipeDTO } from "../model/yaml";
 
     export let pageData: PageDataDTO;
@@ -95,7 +95,7 @@
                                             const protein = prev.protein + next.protein;
                                             const salt = prev.salt + next.salt;
 
-                                            return new NutritionFactsDTO(energy, carbs, fat, protein, salt, ViscosityDTO.NOT_APPLICABLE);
+                                            return new NutritionFactsDTO(energy, carbs, fat, protein, salt, HydrationDTO.NOT_APPLICABLE);
                                         });
 
         return recipeNutritionFacts;
@@ -104,14 +104,16 @@
     function computeHydrationRatio(recipe: RecipeDTO) {
 
         const liquidIngredientsGrams: number = recipe.ingredients
-                                                        .filter(i => i.nutritionFacts.viscosity === ViscosityDTO.LIQUID)
+                                                        .filter(i => i.nutritionFacts.viscosity === HydrationDTO.LIQUID)
                                                         .map(getQuantity)
                                                         .reduce((prev, next, __, ___) => prev + next);
 
         const solidIngredientsGrams: number = recipe.ingredients
-                                                        .filter(i => i.nutritionFacts.viscosity === ViscosityDTO.SOLID)
+                                                        .filter(i => i.nutritionFacts.viscosity === HydrationDTO.SOLID)
                                                         .map(getQuantity)
                                                         .reduce((prev, next, __, ___) => prev + next);
+
+        console.debug(`Liquid=${liquidIngredientsGrams} / Solid=${solidIngredientsGrams}`);
 
         const th = (liquidIngredientsGrams / solidIngredientsGrams) * 100;
 
