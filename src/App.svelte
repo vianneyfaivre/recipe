@@ -3,7 +3,7 @@
 	import type { PageDataDTO } from "./model/yaml";
 	import Error from "./pages/Error.svelte";
 	import WholeRecipe from "./pages/WholeRecipe.svelte";
-	import { getAnchor } from "./util/anchor-manager";
+	import { anchorManager } from "./util/anchor-manager";
 	import { loadYaml } from './util/yaml-loader';
 
 	export let recipeYaml: string;
@@ -24,13 +24,20 @@
 		}
 
 		// Extract the selected recipe from the URL anchor (if any)
-		const anchor = getAnchor();
+		const anchor = anchorManager.get();
+		let found = false;
+		
   		if(anchor) {
 			for(const recipeId of pageData.recipes.keys()) {
 				if(recipeId === anchor) {
 					selectedRecipeId = recipeId;
+					found = true;
 				}
 			}
+		}
+
+		if(found === false) {
+			anchorManager.remove();
 		}
 
 		// Select the first recipe by default

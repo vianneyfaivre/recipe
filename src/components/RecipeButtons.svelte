@@ -1,15 +1,13 @@
 <script lang="ts">
     import type { RecipeDTO } from "../model/yaml";
-    import { setAnchor } from "../util/anchor-manager";
+    import { anchorManager } from "../util/anchor-manager";
 
     export let recipes: Map<string, RecipeDTO>;
     export let selectedRecipeId: string;
 
-    const hasVariations: boolean = recipes.size > 1;
-
     function onVariationClick(recipeId: string): void {
         selectedRecipeId = recipeId;
-        setAnchor(recipeId);
+        anchorManager.set(recipeId);
     }
 </script>
 
