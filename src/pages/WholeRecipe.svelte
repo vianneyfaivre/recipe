@@ -2,17 +2,12 @@
     import Recipe from "../components/Recipe.svelte";
 	import { fade } from 'svelte/transition';
     import type { PageDataDTO } from "../model/yaml";
-    import { setAnchor } from "../util/anchor-manager";
+    import RecipeButtons from "../components/RecipeButtons.svelte";
 
     export let pageData: PageDataDTO;
     export let selectedRecipeId: string;
 
     const hasVariations: boolean = pageData.recipes.size > 1;
-
-    function onVariationClick(recipeId: string): void {
-        selectedRecipeId = recipeId;
-        setAnchor(recipeId);
-    }
 </script>
 
 <header>
@@ -22,18 +17,7 @@
 <div class="post-content e-content">
 
     {#if hasVariations}
-        <div class="variantes-tabs">
-        
-            {#each [...pageData.recipes] as [recipeId, _]}
-                <button 
-                    class="variantes-btn" 
-                    class:active={recipeId === selectedRecipeId}
-                    on:click={_ => onVariationClick(recipeId)}
-                >
-                    {recipeId}
-                </button>
-            {/each}
-        </div>
+        <RecipeButtons recipes={pageData.recipes} bind:selectedRecipeId={selectedRecipeId} />
     {/if}
 
     {#each [...pageData.recipes] as [recipeId, recipe]}
