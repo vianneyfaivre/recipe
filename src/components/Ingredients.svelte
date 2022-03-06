@@ -27,15 +27,18 @@
         });
 
         // Update recipe yield
-        const oldYield: number = recipe.yield;
-        const newYield: number = +((oldYield * newQuantity) / originalQuantity).toFixed(1);
+        if(recipe.yield) {
 
-        if(!!newYield) {
-            console.debug(`Changed yield to "${newYield}"`);
-            recipe.updatedYield = newYield;
-            return;
-        } else {
-            console.debug(`Invalid yield value ${newYield}`);
+            const oldYield: number = recipe.yield;
+            const newYield: number = +((oldYield * newQuantity) / originalQuantity).toFixed(1);
+    
+            if(!!newYield) {
+                console.debug(`Changed yield to "${newYield}"`);
+                recipe.updatedYield = newYield;
+                return;
+            } else {
+                console.debug(`Invalid yield value ${newYield}`);
+            }
         }
 
         // Triggers a refresh of the whole list of ingredients 
