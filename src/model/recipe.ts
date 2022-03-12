@@ -19,7 +19,7 @@ export class RecipeDTO {
         readonly options: Option[],
         readonly yieldType?: string,
         readonly preconditions?: string[],
-        updatedYield?: number,
+        public updatedYield?: number,
         readonly pictures?: number,
     ) {}
 

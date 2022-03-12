@@ -5,7 +5,7 @@
 </script>
 
 
-{#if variations }
+{#if variations && variations.length > 0 }
     <h4>💡 Variantes</h4>
     
     <ul class="no-dots">

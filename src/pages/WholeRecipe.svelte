@@ -8,10 +8,6 @@
     export let selectedRecipeId: string;
 
     const hasVariations: boolean = pageData.recipes.size > 1;
-
-    const first=[...pageData.recipes][0][1];
-    console.info(first.options);
-    console.info(first.allOptions);
 </script>
 
 <header>

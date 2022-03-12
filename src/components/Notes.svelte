@@ -1,10 +1,10 @@
 <script lang="ts">
     import type { NoteDTO } from "../model/recipe";
     
-    export let notes: string[] | NoteDTO[];
+    export let notes: Array<string | NoteDTO>;
 </script>
 
-{#if notes }
+{#if notes && notes.length > 0}
     <h4>📝 Notes</h4>
     <ul>
     {#each notes as note }
