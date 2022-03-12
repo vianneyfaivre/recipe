@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { PageDataDTO, RecipeDTO } from "../model/yaml";
+    import type { PageDataDTO, RecipeDTO } from "../model/recipe";
     import Ingredient from "./Ingredient.svelte";
     import NutritionFacts from "./NutritionFacts.svelte";
     import Yield from "./Yield.svelte";

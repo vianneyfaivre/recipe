@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { PageDataDTO } from "./model/yaml";
+	import type { PageDataDTO } from "./model/recipe";
 	import Error from "./pages/Error.svelte";
 	import WholeRecipe from "./pages/WholeRecipe.svelte";
 	import { anchorManager } from "./util/anchor-manager";

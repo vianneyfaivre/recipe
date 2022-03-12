@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { NoteDTO } from "../model/yaml";
+    import type { NoteDTO } from "../model/recipe";
     
     export let notes: string[] | NoteDTO[];
 </script>

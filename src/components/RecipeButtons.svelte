@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { RecipeDTO } from "../model/yaml";
+    import type { RecipeDTO } from "../model/recipe";
     import { anchorManager } from "../util/anchor-manager";
 
     export let recipes: Map<string, RecipeDTO>;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { IngredientDTO } from "../model/yaml";	
+    import type { IngredientDTO } from "../model/recipe";	
     import { createEventDispatcher } from 'svelte';
 
     export let ingredient: IngredientDTO;

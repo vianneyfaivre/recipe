@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { RecipeDTO } from "../model/yaml";
+    import type { RecipeDTO } from "../model/recipe";
 
     export let recipe: RecipeDTO;
 </script>

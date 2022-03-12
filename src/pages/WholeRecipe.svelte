@@ -1,13 +1,17 @@
 <script lang="ts">
     import Recipe from "../components/Recipe.svelte";
 	import { fade } from 'svelte/transition';
-    import type { PageDataDTO } from "../model/yaml";
+    import type { PageDataDTO } from "../model/recipe";
     import RecipeButtons from "../components/RecipeButtons.svelte";
 
     export let pageData: PageDataDTO;
     export let selectedRecipeId: string;
 
     const hasVariations: boolean = pageData.recipes.size > 1;
+
+    const first=[...pageData.recipes][0][1];
+    console.info(first.options);
+    console.info(first.allOptions);
 </script>
 
 <header>

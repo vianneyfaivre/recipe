@@ -1,6 +1,6 @@
 <script lang="ts">
 import Ingredients from "./Ingredients.svelte";
-import type { PageDataDTO, RecipeDTO } from "../model/yaml";
+import type { PageDataDTO, RecipeDTO } from "../model/recipe";
 import Notes from "./Notes.svelte";
 import Steps from "./Steps.svelte";
 import Variations from "./Variations.svelte";

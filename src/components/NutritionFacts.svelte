@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { nutritionDB, NutritionFactsDTO, HydrationDTO } from "../data/nutrition";
-    import type { IngredientDTO, PageDataDTO, RecipeDTO } from "../model/yaml";
+    import { HydrationDTO, nutritionDB, NutritionFactsDTO } from "../model/nutrition";
+
+    import type { IngredientDTO, PageDataDTO, RecipeDTO } from "../model/recipe";
 
     export let pageData: PageDataDTO;
     export let recipe: RecipeDTO;

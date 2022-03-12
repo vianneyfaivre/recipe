@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { RecipeDTO } from "../model/yaml";
+    import type { RecipeDTO } from "../model/recipe";
     import { ImageDTO } from "../model/pictures";
     
     export let recipeId: string;

@@ -1,5 +1,6 @@
 import * as jsyaml from "js-yaml";
-import type { PageDataDTO } from "../model/yaml";
+import type { PageDataDTO } from "../model/recipe";
+import { Mappers } from "./model-mapper";
 
 export async function loadYaml(path: string): Promise<PageDataDTO> {
 
@@ -17,8 +18,7 @@ export async function loadYaml(path: string): Promise<PageDataDTO> {
         throw Error(`Le fichier "${path}" est invalide : ${e.reason}`);
     }
 
-    // Convert object to Map
-    json.recipes = new Map(Object.entries(json.recipes));
+    let dto = Mappers.pageData(json);
 
-    return json;
+    return dto;
 }

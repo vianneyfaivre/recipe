@@ -1,65 +1,59 @@
-/*
- * Can't use default values on attributes because of the use of jsyaml
+/** 
+ * Classes that matches with the recipe YAML structure.
+ * 
+ * Deserialized with jsyaml.
+ * 
+ * Can't use default values nor methods.
  */
-
-import type { NutritionFactsDTO } from "../data/nutrition";
-
-export class PageDataDTO {
+export class PageDataYaml {
 		
     readonly title: string;
-    readonly withYeast: boolean;
-    readonly hydrationRatioEnabled: boolean;
     readonly preconditions: string[];
-    readonly recipes: Map<string, RecipeDTO>;
-    readonly notes: string[] | NoteDTO[];
-    readonly variations: VariationDTO[];
+    readonly recipes: object; // real type: Map<string, RecipeYaml> (can't be deserialized by jsyaml)
+    readonly notes: Array<string | NoteYaml>;
+    readonly variations: VariationYaml[];
 }
 
-export class RecipeDTO {
+export class RecipeYaml {
 
     readonly yield?: number;
     readonly yieldType?: string;
-    readonly ingredients: IngredientDTO[];
+    readonly options?: string;
+    readonly ingredients: IngredientYaml[];
     readonly preconditions?: string[];
-    readonly steps: StepDTO[];
-
-    updatedYield?: number;
-    pictures?: number;
+    readonly steps: StepYaml[];
+    readonly pictures: number;
 }
 
-export class IngredientDTO {
+export class IngredientYaml {
 
     readonly label: string;
     readonly qty?: number;
     readonly unit?: string;
     readonly variable?: boolean;
     readonly link?: string;
-
-    updatedQty?: number;
-    nutritionFactsPer100gr?: NutritionFactsDTO;
-    nutritionFacts?: NutritionFactsDTO;
 }
 
-export class StepDTO {
+export class StepYaml {
 
     readonly label: string;
     readonly emoji: string;
-    readonly details: string | StepDetailDTO[];
+    readonly details: Array<string | StepDetailYaml>;
 }
 
-export class StepDetailDTO {
+export class StepDetailYaml {
 
     readonly label: string;
     readonly link: string;
 }
 
-export class NoteDTO {
+export class NoteYaml {
 
     readonly label: string;
     readonly link?: string;
 }
 
-export class VariationDTO {
+export class VariationYaml {
 
     readonly label: string;
     readonly todo: boolean;
