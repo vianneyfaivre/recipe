@@ -22,7 +22,10 @@
 <li itemprop="recipeIngredient">
 
     {#if ingredient.link }
-        <a href="{ ingredient.link }">{ ingredient.label }</a> 
+     
+        <a href="{ ingredient.link }">{ ingredient.label }</a>
+
+        {ingredient.updatedQty || ingredient.qty || ''}
     {:else}
         { ingredient.label } : 
 
