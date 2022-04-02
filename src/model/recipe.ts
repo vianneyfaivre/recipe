@@ -13,15 +13,19 @@ export class PageDataDTO {
 
 export class RecipeDTO {
 
+    public updatedYield?: number;
+
     constructor(
         readonly ingredients: IngredientDTO[],
         readonly steps: StepDTO[],
         readonly options: Option[],
         readonly yieldType?: string,
         readonly preconditions?: string[],
-        public yyield?: number, // can't use `yield` because it's a reserved keyword
+        readonly yyield?: number, // can't use `yield` because it's a reserved keyword
         readonly pictures?: number,
-    ) {}
+    ) {
+        this.updatedYield = yyield;
+    }
 
     hasOption(option: Option): boolean {
 

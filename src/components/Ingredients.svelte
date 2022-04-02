@@ -33,7 +33,7 @@
     
             if(!!newYield) {
                 console.debug(`Changed yield to "${newYield}"`);
-                recipe.yyield = newYield;
+                recipe.updatedYield = newYield;
                 return;
             } else {
                 console.debug(`Invalid yield value ${newYield}`);
