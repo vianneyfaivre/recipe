@@ -1,10 +1,9 @@
 <script lang="ts">
-    import type { PageDataDTO, RecipeDTO } from "../model/recipe";
+    import type { RecipeDTO } from "../model/recipe";
     import Ingredient from "./Ingredient.svelte";
     import NutritionFacts from "./NutritionFacts.svelte";
     import Yield from "./Yield.svelte";
     
-    export let pageData: PageDataDTO;
     export let recipe: RecipeDTO;
 
     function updateIngredientsQuantities(originalQuantity: number, newQuantity: number) {
@@ -64,4 +63,4 @@
     {/each}
 </ul>
 
-<NutritionFacts {recipe} {pageData} />
+<NutritionFacts {recipe} />

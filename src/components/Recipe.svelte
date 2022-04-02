@@ -20,7 +20,7 @@ const hasVariations: boolean = pageData.recipes.size > 1;
 
         <div class="ingredients-panel">
 
-            <Ingredients {pageData} {recipe} />
+            <Ingredients {recipe} />
         </div>
 
         <div class="etapes-panel"> 
@@ -29,7 +29,7 @@ const hasVariations: boolean = pageData.recipes.size > 1;
                 <RecipeSubtitle recipeTitle={pageData.title} variationTitle={recipeId} />
             {/if}
 
-            <Steps {pageData} {recipeId} {recipe} /> 
+            <Steps {pageData} {recipe} /> 
         </div> 
         
     </div>

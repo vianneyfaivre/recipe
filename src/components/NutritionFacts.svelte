@@ -1,9 +1,8 @@
 <script lang="ts">
     import { HydrationDTO, nutritionDB, NutritionFactsDTO } from "../model/nutrition";
 
-    import { IngredientDTO, Option, PageDataDTO, RecipeDTO } from "../model/recipe";
+    import { IngredientDTO, Option, RecipeDTO } from "../model/recipe";
 
-    export let pageData: PageDataDTO;
     export let recipe: RecipeDTO;
 
     const nutritionFactsValid: boolean = computeRecipeNutrition(recipe);
