@@ -1,12 +1,13 @@
 <script lang="ts">
-    import type { PageDataDTO, RecipeDTO } from "../model/recipe";
+    import { Option, PageDataDTO, RecipeDTO } from "../model/recipe";
     
     export let pageData: PageDataDTO;
-    export let recipeId: string;
     export let recipe: RecipeDTO;
+
+    const hasYeast: boolean = recipe.hasOption(Option.YEAST);
 </script>
 
-{#if pageData.preconditions || pageData.withYeast }
+{#if pageData.preconditions || hasYeast }
     <h4>📜 Préambule</h4>
     
     <ul>
@@ -17,7 +18,7 @@
             {/each}
         {/if}
             
-        {#if pageData.withYeast }
+        {#if hasYeast }
             <li><a href="/cuisine/levure">Activer la levure</a></li>
         {/if}
 
@@ -26,7 +27,7 @@
 
     
 {#if recipe.preconditions }
-    <div id="{recipeId}-preconditions" class="variante-preconditions">
+    <div class="variante-preconditions">
 
         <h4>📜 Préambule</h4>
         
@@ -40,7 +41,7 @@
     </div>
 {/if}
 
-<div id="{recipeId}-steps" class="variante-steps">
+<div class="variante-steps">
 
     {#each Object.values(recipe.steps) as step}
         <h4>{step.emoji || '📜'} {step.label}</h4>

@@ -27,14 +27,14 @@
         });
 
         // Update recipe yield
-        if(recipe.yield) {
+        if(recipe.yyield) {
 
-            const oldYield: number = recipe.yield;
+            const oldYield: number = recipe.yyield;
             const newYield: number = +((oldYield * newQuantity) / originalQuantity).toFixed(1);
     
             if(!!newYield) {
                 console.debug(`Changed yield to "${newYield}"`);
-                recipe.updatedYield = newYield;
+                recipe.yyield = newYield;
                 return;
             } else {
                 console.debug(`Invalid yield value ${newYield}`);
@@ -49,7 +49,7 @@
 <h4 class="variante-title">
     🥕 Ingrédients 
 
-    {#if recipe.yield}
+    {#if recipe.yyield}
         <Yield {recipe} />
     {/if}
 </h4>

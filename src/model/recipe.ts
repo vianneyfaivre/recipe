@@ -19,10 +19,14 @@ export class RecipeDTO {
         readonly options: Option[],
         readonly yieldType?: string,
         readonly preconditions?: string[],
-        public updatedYield?: number,
+        public yyield?: number, // can't use `yield` because it's a reserved keyword
         readonly pictures?: number,
     ) {}
 
+    hasOption(option: Option): boolean {
+
+        return !!this.options?.find(o => o === option);
+    }
 }
 
 export enum Option {

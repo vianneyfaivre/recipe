@@ -6,8 +6,8 @@
 
 pour 
 <span itemprop="recipeYield">
-    <span data-originalValue="{ recipe.updatedYield }">
-        { recipe.updatedYield }
+    <span data-originalValue="{ recipe.yyield }">
+        { recipe.yyield }
     </span>
     {recipe.yieldType || ''}
 </span>

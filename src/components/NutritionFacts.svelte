@@ -1,7 +1,7 @@
 <script lang="ts">
     import { HydrationDTO, nutritionDB, NutritionFactsDTO } from "../model/nutrition";
 
-    import type { IngredientDTO, PageDataDTO, RecipeDTO } from "../model/recipe";
+    import { IngredientDTO, Option, PageDataDTO, RecipeDTO } from "../model/recipe";
 
     export let pageData: PageDataDTO;
     export let recipe: RecipeDTO;
@@ -21,7 +21,7 @@
         // Get recipe overall nutrition facts
         recipeNutritionFacts = getNutritionFacts(recipe);
 
-        if(pageData.hydrationRatioEnabled === true) {
+        if(recipe.hasOption(Option.HYDRATION) === true) {
 
             // Compute hydration ratio 
             hydrationRatio = computeHydrationRatio(recipe);
@@ -40,7 +40,7 @@
     function computeRecipeNutrition(recipe: RecipeDTO): boolean {
 
         // Yield is mandatory
-        if(!recipe.yield || !recipe.yieldType) {
+        if(!recipe.yyield || !recipe.yieldType) {
             console.debug("Missing yield information");
             return false;
         }
@@ -136,11 +136,11 @@
         let salt = (qty * nutritionPer100gr.salt) / 100;
 
         // Divide by the number of servings
-        energy = energy / recipe.yield;
-        carbs = carbs / recipe.yield;
-        fat = fat / recipe.yield;
-        protein = protein / recipe.yield;
-        salt = salt / recipe.yield;
+        energy = energy / recipe.yyield;
+        carbs = carbs / recipe.yyield;
+        fat = fat / recipe.yyield;
+        protein = protein / recipe.yyield;
+        salt = salt / recipe.yyield;
 
         // Assign nutrition facts to the ingredient
         ingredient.nutritionFacts = new NutritionFactsDTO(energy, carbs, fat, protein, salt, nutritionPer100gr.viscosity);
