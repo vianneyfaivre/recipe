@@ -62,6 +62,54 @@ recipes:
           - Step II-1
           - Step II-2
 
+  Recette 3:
+    ingredients:
+      - label: variable
+        qty: 10
+        unit: mL
+        variable: true
+      - label: singulier
+        qty: 0.5
+        unit: cuillère à café
+      - label: pluriel
+        qty: 1.5
+        unit: gousses
+      - label: oeuf 1
+        qty: 1.5
+        unit: jaune d'oeuf
+      - label: oeuf 2
+        qty: 1.5
+        unit: blanc d'oeuf
+      - label: sel
+        qty: 1
+        unit: pincée
+      - label: gelatine 
+        qty: 1
+        unit: feuille
+      - label: cardamome 
+        qty: 2
+        unit: cosses
+      - label: badiane 
+        qty: 2
+        unit: étoiles
+      - label: cannelle 
+        qty: 1
+        unit: baton
+      - label: chocolat 
+        qty: 1
+        unit: carreau
+      - label: poivre 
+        qty: 2
+        unit: grains
+    steps:
+      - label: Steps I
+        details:
+          - Step I-1
+      - label: Steps II
+        emoji: 🔥
+        details:
+          - Step II-1
+          - Step II-2
 notes:
   - Notes blabla
   - label: Note with link

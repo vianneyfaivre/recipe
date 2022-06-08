@@ -1,3 +1,4 @@
+import { pluralizer } from "../util/pluralizer";
 import type { NutritionFactsDTO } from "./nutrition";
 
 export class PageDataDTO {
@@ -44,16 +45,37 @@ export class IngredientDTO {
     constructor(
         readonly label: string,
         readonly qty?: number,
-        readonly unit?: string,
+        public unit?: string,
         readonly variable?: boolean,
         readonly link?: string,
     ) {
-        this.updatedQty = qty;
+        this._updatedQty = qty;
     }
 
-    updatedQty?: number;
+    _updatedQty?: number;
     nutritionFactsPer100gr?: NutritionFactsDTO;
     nutritionFacts?: NutritionFactsDTO;
+
+    set updatedQty(qty: number) {
+
+        if(this.unit && qty) {
+
+            const before = this.unit;
+            const pluralize = qty > 1;
+            const after = pluralizer.convert(this.unit, pluralize);
+
+            if(before !== after) {
+                console.debug(`Change unit from '${before}' to '${after}'`);
+                this.unit = after;
+            }
+        }
+
+        this._updatedQty = qty;
+    }
+
+    get updatedQty(): number {
+        return this._updatedQty;
+    }
 }
 
 export class StepDTO {
