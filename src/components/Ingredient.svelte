@@ -23,9 +23,12 @@
 
     {#if ingredient.link }
      
-        <a href="{ ingredient.link }">{ ingredient.label }</a>
+        <a href="{ ingredient.link }">
+            { ingredient.label }
+            { ingredient.updatedQty || ingredient.qty || '' }
+            { ingredient.unit || '' }
+        </a>
 
-        {ingredient.updatedQty || ingredient.qty || ''}
     {:else}
         { ingredient.label } : 
 
@@ -43,7 +46,7 @@
             à souhait    
         {/if}
 
+        { ingredient.unit || '' }
     {/if}
 
-    {ingredient.unit || ''}
 </li>
