@@ -59,6 +59,7 @@ export let recipe: RecipeDTO;
         .steps-panel { 
             border-left: 0; 
             padding-left: 0px; 
+            padding-right: 0px; 
             margin: 0px; 
             flex: 1 1 auto;
         } 

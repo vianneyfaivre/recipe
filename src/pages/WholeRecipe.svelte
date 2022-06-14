@@ -43,6 +43,13 @@
         display: inline-block;
     }
 
+    @media all and (max-width: 700px) { 
+        :global(h3) {
+            display: block;
+            text-align: center;
+        }
+    }
+
     .post-content {
         background-color: var(--bg2-color);
     }

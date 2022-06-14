@@ -54,7 +54,7 @@
     }
 </style>
 
-<h3 class="info-title">
+<h3>
     🥕 Ingrédients 
 
     {#if recipe.yyield}
@@ -62,7 +62,7 @@
     {/if}
 </h3>
 
-<ul class="info-title">
+<ul>
     {#each recipe.ingredients as ingredient }
     
         <Ingredient 

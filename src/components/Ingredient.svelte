@@ -20,7 +20,11 @@
 </script>
 
 <style>
-.ingredient-qty-variable { width: 4em; }
+    input { 
+        width: 4em; 
+        border: 0;
+        background-color: var(--bg3-color);
+    }
 </style>
 
 <li itemprop="recipeIngredient">
@@ -38,7 +42,7 @@
 
         {#if ingredient.variable === true }
         
-            <input class="ingredient-qty-variable" 
+            <input
                 type="number" 
                 value="{ingredient.updatedQty || ingredient.qty}"
                 min="1"
