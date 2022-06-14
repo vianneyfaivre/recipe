@@ -5,7 +5,7 @@
 </script>
 
 {#if notes && notes.length > 0}
-    <h4>📝 Notes</h4>
+    <h3>✍️ Notes</h3>
     <ul>
     {#each notes as note }
 

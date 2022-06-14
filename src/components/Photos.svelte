@@ -42,28 +42,29 @@
 
 </script>
 
+<style>
+    .recipe-pictures { display: flex; flex-wrap: wrap; flex-shrink: 0; align-items: flex-start; }
+    .recipe-picture { padding: 5px; border-radius: 10px; transition: width 500ms; cursor: pointer; }
+</style>
+
 {#if picturesCount > 0}
 
-    <div class="variante-pictures">
+    <h3>📷 Photos</h3>
 
-        <h4>📷 Photos</h4>
+    <div class="recipe-pictures">
 
-        <div class="recipe-pictures">
-
-            {#each images as image}
-                <img 
-                    src={image.path}
-                    itemprop='image'
-                    class="recipe-picture" 
-                    width={image.width}
-                    alt={title}
-                    title={title}
-                    on:click={_ => onPictureClick(image)} 
-                    on:error={e => onPictureLoadingError(e.target)}
-                />
-            {/each}
-            
-        </div>
-
+        {#each images as image}
+            <img 
+                src={image.path}
+                itemprop='image'
+                class="recipe-picture" 
+                width={image.width}
+                alt={title}
+                title={title}
+                on:click={_ => onPictureClick(image)} 
+                on:error={e => onPictureLoadingError(e.target)}
+            />
+        {/each}
+        
     </div>
 {/if}

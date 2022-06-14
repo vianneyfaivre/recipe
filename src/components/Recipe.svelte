@@ -5,32 +5,77 @@ import Notes from "./Notes.svelte";
 import Steps from "./Steps.svelte";
 import Variations from "./Variations.svelte";
 import Photos from "./Photos.svelte";
-import RecipeSubtitle from "./RecipeSubtitle.svelte";
 
 export let pageData: PageDataDTO;
 export let recipeId: string;
 export let recipe: RecipeDTO;
-
-const hasVariations: boolean = pageData.recipes.size > 1;
 </script>
 
-<div id="{recipeId}-variante" class="variante-whole" itemscope itemtype="https://schema.org/Recipe">
-			
-    <div id="{recipeId}-whole" class="recette-whole"> 
+<style>
+    .recette-whole { 
+        padding-bottom: 15px; 
+        display: flex; 
+        flex-flow: row nowrap; 
+        align-items: flex-start;
+    }
+    
+    .ingredients-panel { 
+        flex-grow: 0;
+        flex-shrink: 1;
+        flex-basis: min-content;
+        white-space: nowrap; 
+        
+        position: sticky;
+        top: 15px;
+
+        padding-top: 15px;
+        padding-left: 10px; 
+        padding-right: 10px; 
+        margin-top: 25px;
+        margin-left: 50px;
+
+        border: 2px solid var(--border-color);
+        border-radius: 20px;
+
+        background-color: var(--bg3-color);
+    }
+
+    :global(h3.info-title) {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .steps-panel { 
+        padding-left: 10px; 
+        padding-right: 10px; 
+        flex: 1 1 auto; 
+    }
+
+    .bottom-panel {
+
+        border-top: 5px solid var(--border-color);
+        padding-top: 15px;
+    }
+     
+    @media all and (max-width: 700px) { 
+        .recette-whole { flex-direction: column; }
+        .steps-panel { border-left: 0; padding-left: 0px; margin: 0px; flex: 1 1 auto; } 
+    }
+</style>
+
+<div id="{recipeId}-variante" class="variante-whole" itemscope itemtype="https://schema.org/Recipe">			
+
+    <div id="{recipeId}-whole" class="recette-whole">
+        
+        <div class="steps-panel"> 
+
+            <Steps {pageData} {recipe} /> 
+        </div> 
 
         <div class="ingredients-panel">
 
             <Ingredients {recipe} />
         </div>
-
-        <div class="etapes-panel"> 
-
-            {#if hasVariations} 
-                <RecipeSubtitle recipeTitle={pageData.title} variationTitle={recipeId} />
-            {/if}
-
-            <Steps {pageData} {recipe} /> 
-        </div> 
         
     </div>
 

@@ -338,3 +338,12 @@ recipes:
         - Saupoudrer de sucre en grains
         - Cuire 30 minutes à 180°C
         - Laisser ressuer 30 minutes sur une grille
+notes:
+  - blabla
+  - lalallaal
+
+variations:
+  - label: variante 1
+    todo: false
+  - label: variante 2
+    todo: true

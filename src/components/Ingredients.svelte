@@ -45,15 +45,15 @@
     }
 </script>
 
-<h4 class="variante-title">
+<h3 class="info-title">
     🥕 Ingrédients 
 
     {#if recipe.yyield}
         <Yield {recipe} />
     {/if}
-</h4>
+</h3>
 
-<ul class="variante-ingredients">
+<ul class="info-title">
     {#each recipe.ingredients as ingredient }
     
         <Ingredient 

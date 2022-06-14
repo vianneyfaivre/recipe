@@ -148,9 +148,9 @@
 
 
 {#if recipeNutritionFacts }
-    <h4 class="variante-title">
+    <h3 class="info-title">
         📚 Valeurs Nutritionnelles (par portion)
-    </h4>
+    </h3>
 
     <ul class="variante-nutrition">
 
@@ -164,8 +164,8 @@
 
 {#if hydrationRatio }
 
-    <h4 class="variante-title">
+    <h3 class="info-title">
         🍞 Taux d'hydratation : {hydrationRatio}%
-    </h4>
+    </h3>
 
 {/if}

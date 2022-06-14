@@ -4,9 +4,12 @@
     export let variations: VariationDTO[];
 </script>
 
+<style>
+    .no-dots { list-style-type: none; margin-left: 10px; }
+</style>
 
 {#if variations && variations.length > 0 }
-    <h4>💡 Variantes</h4>
+    <h3>💡 Variantes</h3>
     
     <ul class="no-dots">
     {#each variations as variation }
