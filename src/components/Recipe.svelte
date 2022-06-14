@@ -37,6 +37,10 @@ export let recipe: RecipeDTO;
 
         background-color: var(--bg3-color);
     }
+
+    h2.steps-title {
+        display: none;
+    } 
     
     .steps-panel { 
         padding-left: 10px; 
@@ -53,8 +57,12 @@ export let recipe: RecipeDTO;
     @media all and (max-width: 700px) { 
 
         .recette-whole { 
-            flex-direction: column; 
+            flex-direction: column-reverse; /* "reverse" so the ingredients are displayed first */
         }
+
+        h2.steps-title {
+            display: block;
+        } 
         
         .steps-panel { 
             border-left: 0; 
@@ -69,7 +77,9 @@ export let recipe: RecipeDTO;
             top: 0; 
             width: 85%;
             margin: auto;
+            margin-bottom: 15px;
         }
+
     }
 </style>
 
@@ -78,6 +88,9 @@ export let recipe: RecipeDTO;
     <div id="{recipeId}-whole" class="recette-whole">
         
         <div class="steps-panel"> 
+            <h2 class="steps-title">
+                📖 Étapes 📖
+            </h2>
 
             <Steps {pageData} {recipe} /> 
         </div> 

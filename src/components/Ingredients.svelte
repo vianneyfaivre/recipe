@@ -55,11 +55,13 @@
 </style>
 
 <h3>
-    🥕 Ingrédients 
+    🥕 Ingrédients
 
     {#if recipe.yyield}
         <Yield {recipe} />
     {/if}
+
+    🥕
 </h3>
 
 <ul>

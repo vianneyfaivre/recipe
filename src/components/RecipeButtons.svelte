@@ -15,6 +15,7 @@
 .variations-tabs {  
     display: flex; 
     justify-content: center; 
+    flex-wrap: wrap;
     margin-bottom: 15px; 
     background-color: var(--bg-color); 
     border-bottom: 5px solid var(--border-color); 
@@ -24,13 +25,22 @@
     background-color: inherit; 
     border: none; 
     cursor: pointer; 
-    padding: 10px; 
-    padding-top: 13px;
-    font-size: 13px; 
+    padding: 13px 10px 10px 10px; 
+    margin: 0px 2px;
+    font-size: 15px; 
     transition: 0.3s; 
 }
 
-.variations-tabs button:hover { background-color: var(--border-color); }
+@media all and (max-width: 700px) { 
+    .variations-tabs button {  
+        margin: 0;
+        font-size: 12px; 
+    }
+}
+
+.variations-tabs button:hover { 
+    background-color: var(--border-color); 
+}
 
 .variations-tabs button.active { 
     background-color: var(--border-color); 
