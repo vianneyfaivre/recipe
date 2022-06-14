@@ -5,6 +5,7 @@ import Notes from "./Notes.svelte";
 import Steps from "./Steps.svelte";
 import Variations from "./Variations.svelte";
 import Photos from "./Photos.svelte";
+import NutritionFacts from "./NutritionFacts.svelte";
 
 export let pageData: PageDataDTO;
 export let recipeId: string;
@@ -28,21 +29,13 @@ export let recipe: RecipeDTO;
         position: sticky;
         top: 15px;
 
-        padding-top: 15px;
-        padding-left: 10px; 
-        padding-right: 10px; 
-        margin-top: 25px;
-        margin-left: 50px;
+        margin-right: 15px;
+        padding: 15px 10px 0 10px;
 
         border: 2px solid var(--border-color);
         border-radius: 20px;
 
         background-color: var(--bg3-color);
-    }
-
-    :global(h3.info-title) {
-        text-align: center;
-        width: 100%;
     }
     
     .steps-panel { 
@@ -58,8 +51,24 @@ export let recipe: RecipeDTO;
     }
      
     @media all and (max-width: 700px) { 
-        .recette-whole { flex-direction: column; }
-        .steps-panel { border-left: 0; padding-left: 0px; margin: 0px; flex: 1 1 auto; } 
+
+        .recette-whole { 
+            flex-direction: column; 
+        }
+        
+        .steps-panel { 
+            border-left: 0; 
+            padding-left: 0px; 
+            margin: 0px; 
+            flex: 1 1 auto;
+        } 
+
+        .ingredients-panel { 
+            position: relative;
+            top: 0; 
+            width: 85%;
+            margin: auto;
+        }
     }
 </style>
 
@@ -84,6 +93,8 @@ export let recipe: RecipeDTO;
         <Notes notes={pageData.notes} />
 
         <Variations variations={pageData.variations} />
+
+        <NutritionFacts {recipe} />
 
         <Photos {recipeId} {recipe} title={pageData.title} />
 

@@ -147,8 +147,9 @@
 </script>
 
 
+<div>
 {#if recipeNutritionFacts }
-    <h3 class="info-title">
+    <h3>
         📚 Valeurs Nutritionnelles (par portion)
     </h3>
 
@@ -159,13 +160,11 @@
         <li>Glucides : {recipeNutritionFacts.carbs.toFixed(0)} gr</li>
         <li>Protéines : {recipeNutritionFacts.protein.toFixed(0)} gr</li>
         <li>Sel : {recipeNutritionFacts.salt.toFixed(1)} gr</li>
+        {#if hydrationRatio }
+            <li>
+                🍞 Taux d'hydratation : {hydrationRatio}%
+            </li>
+        {/if}
     </ul>
 {/if}
-
-{#if hydrationRatio }
-
-    <h3 class="info-title">
-        🍞 Taux d'hydratation : {hydrationRatio}%
-    </h3>
-
-{/if}
+</div>

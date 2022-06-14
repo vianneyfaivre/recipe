@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { RecipeDTO } from "../model/recipe";
     import Ingredient from "./Ingredient.svelte";
-    import NutritionFacts from "./NutritionFacts.svelte";
     import Yield from "./Yield.svelte";
     
     export let recipe: RecipeDTO;
@@ -45,6 +44,16 @@
     }
 </script>
 
+
+<style>
+    h3 {
+        text-align: center;
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+</style>
+
 <h3 class="info-title">
     🥕 Ingrédients 
 
@@ -62,5 +71,3 @@
         />
     {/each}
 </ul>
-
-<NutritionFacts {recipe} />

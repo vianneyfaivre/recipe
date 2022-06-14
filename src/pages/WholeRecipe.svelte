@@ -16,7 +16,6 @@
         --bg2-color: #EFF9FC;
         --bg3-color: #CCCEF74D;
 
-
         --border-color: #7075CC;
     }
 
@@ -39,8 +38,7 @@
 
     :global(h3) {
         font-size: 20px;
-        padding-left: 5px;
-        padding-bottom: 3px;
+        padding: 0px 5px 3px 5px;
         border-bottom: 1px solid var(--border-color);
         display: inline-block;
     }
