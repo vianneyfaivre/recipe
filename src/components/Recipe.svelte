@@ -30,7 +30,7 @@ export let recipe: RecipeDTO;
         position: sticky;
         top: 15px;
 
-        margin-right: 15px;
+        margin: 10px 10px;
         padding: 15px 10px 0 10px;
 
         border: 2px solid var(--border-color);
@@ -44,15 +44,14 @@ export let recipe: RecipeDTO;
     } 
     
     .steps-panel { 
-        padding-left: 10px; 
-        padding-right: 10px; 
+        padding: 0 10px; 
         flex: 1 1 auto; 
     }
 
     .bottom-panel {
-
+        background-color: var(--footer-bg-color);
         border-top: 5px solid var(--border-color);
-        padding-top: 15px;
+        padding: 15px 10px 0 10px; 
     }
      
     @media all and (max-width: 700px) { 
@@ -78,7 +77,6 @@ export let recipe: RecipeDTO;
             top: 0; 
             width: 85%;
             margin: auto;
-            margin-bottom: 15px;
         }
 
     }

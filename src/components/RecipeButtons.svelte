@@ -43,6 +43,8 @@ nav button:hover {
 }
 
 nav button.active { 
+    color: var(--behind-bg-color);
+    font-weight: bold;
     background-color: var(--border-color); 
     border-top-left-radius: 20px; 
     border-top-right-radius: 20px; 

@@ -6,11 +6,9 @@
 
 <GlobalStyle /> 
     
-<article class="post h-entry recette">
+<article class="recette">
     
-    <header>
-        <h1 class="post-title p-name">{title}</h1>
-    </header>
+    <h1>{title}</h1>
 
     <section>
         <slot></slot>

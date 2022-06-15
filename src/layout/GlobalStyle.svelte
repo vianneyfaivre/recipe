@@ -1,35 +1,21 @@
 <style>
     :root {
-        /* Darkest -> Lightest */
-        --border-color: #40514E;
-        --header-bg-color: #11999E; 
-        --content-side-bg-color: #30E3CA; 
-        --content-main-bg-color: #E4F9F5;
-        --behind-bg-color: #fbf9ea;
-
-        /* Theme 1 
+        /* Theme - Blue/Pink 
         --border-color: #F38BA0;
         --header-bg-color: #B5EAEA; 
-        --content-side-bg-color: #FFBCBC; 
+        --content-side-bg-color: #B5EAEA; 
         --content-main-bg-color: #EDF6E5;
+        --footer-bg-color: var(--header-bg-color);
         --behind-bg-color: #EDF6E5;
         */
 
-        /* Theme 2
-        --border-color: #FF7878;
-        --header-bg-color: #E0C097; 
-        --content-side-bg-color: #F3F0D7; 
-        --content-main-bg-color: #CEE5D0;
+        /* Theme - Purple/Yellow */
+        --border-color: #AA96DA;
+        --header-bg-color: #F7EBEF;
+        --content-side-bg-color: var(--header-bg-color); 
+        --content-main-bg-color: #FDFCE5;
+        --footer-bg-color: var(--header-bg-color);
         --behind-bg-color: #fbf9ea;
-        */
-
-        /* Theme 3
-        --border-color: #95E1D3;
-        --header-bg-color: #F38181; 
-        --content-side-bg-color: #f4e5ac; 
-        --content-main-bg-color: #EAFFD0;
-        --behind-bg-color: #fbf9ea;
-        */
     }
 
     :global(body) {
@@ -44,7 +30,7 @@
         font-size: 45px; 
         text-align: center; 
         text-decoration: 3px underline wavy var(--border-color);
-        padding-bottom: 35px; 
+        padding: 15px 0 35px 0; 
         margin-bottom: 0px; 
         background-color: var(--header-bg-color);
     }
@@ -62,6 +48,14 @@
         padding: 0px 5px 3px 5px;
         border-bottom: 1px solid var(--border-color);
         display: inline-block;
+    }
+
+    :global(a) {
+        color: var(--border-color);
+    }
+
+    :global(a:visited) {
+        color: var(--border-color);
     }
 
     @media all and (max-width: 700px) { 
