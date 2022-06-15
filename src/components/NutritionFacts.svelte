@@ -147,13 +147,13 @@
 </script>
 
 
-<div>
 {#if recipeNutritionFacts }
+<section>
     <h3>
         📚 Valeurs Nutritionnelles (par portion)
     </h3>
 
-    <ul class="variante-nutrition">
+    <ul>
 
         <li>Énergie : {recipeNutritionFacts.energy.toFixed(0)} kCal</li>
         <li>Matières Grasses : {recipeNutritionFacts.fat.toFixed(0)} gr</li>
@@ -166,5 +166,5 @@
             </li>
         {/if}
     </ul>
+</section>
 {/if}
-</div>

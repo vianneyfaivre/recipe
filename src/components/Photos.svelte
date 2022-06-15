@@ -44,20 +44,20 @@
 
 <style>
     .recipe-pictures { display: flex; flex-wrap: wrap; flex-shrink: 0; align-items: flex-start; }
-    .recipe-picture { padding: 5px; border-radius: 10px; transition: width 500ms; cursor: pointer; }
+    img { padding: 5px; border-radius: 10px; transition: width 500ms; cursor: pointer; }
 </style>
 
 {#if picturesCount > 0}
-
+<section>
+    
     <h3>📷 Photos</h3>
-
+    
     <div class="recipe-pictures">
-
+        
         {#each images as image}
             <img 
                 src={image.path}
                 itemprop='image'
-                class="recipe-picture" 
                 width={image.width}
                 alt={title}
                 title={title}
@@ -67,4 +67,5 @@
         {/each}
         
     </div>
+</section>
 {/if}

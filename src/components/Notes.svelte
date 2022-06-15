@@ -5,15 +5,18 @@
 </script>
 
 {#if notes && notes.length > 0}
+<section>
+
     <h3>✍️ Notes</h3>
     <ul>
-    {#each notes as note }
-
+        {#each notes as note }
+        
         {#if typeof note === "string" }
-            <li>{ note }</li>
+        <li>{ note }</li>
         {:else}
-            <li><a href="{ note.link }">{ note.label }</a></li>
+        <li><a href="{ note.link }">{ note.label }</a></li>
         {/if}
-    {/each}
+        {/each}
     </ul>
+</section>
 {/if}

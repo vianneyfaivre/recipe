@@ -5,13 +5,17 @@
 </script>
 
 <style>
-    .no-dots { list-style-type: none; margin-left: 10px; }
+    ul { 
+        list-style-type: none; 
+        margin-left: 10px; 
+    }
 </style>
 
 {#if variations && variations.length > 0 }
+<section>
     <h3>💡 Variantes</h3>
     
-    <ul class="no-dots">
+    <ul>
     {#each variations as variation }
         <li>
             <input type="checkbox" checked={!variation.todo} />
@@ -20,4 +24,5 @@
         </li>
     {/each}
     </ul>
+</section>
 {/if}

@@ -54,22 +54,24 @@
     }
 </style>
 
-<h3>
-    🥕 Ingrédients
+<section>
+    <h3>
+        🥕 Ingrédients
 
-    {#if recipe.yyield}
-        <Yield {recipe} />
-    {/if}
+        {#if recipe.yyield}
+            <Yield {recipe} />
+        {/if}
 
-    🥕
-</h3>
+        🥕
+    </h3>
 
-<ul>
-    {#each recipe.ingredients as ingredient }
-    
-        <Ingredient 
-            {ingredient} 
-            on:quantityChange={e => updateIngredientsQuantities(e.detail.originalQty, e.detail.newQty)} 
-        />
-    {/each}
-</ul>
+    <ul>
+        {#each recipe.ingredients as ingredient }
+        
+            <Ingredient 
+                {ingredient} 
+                on:quantityChange={e => updateIngredientsQuantities(e.detail.originalQty, e.detail.newQty)} 
+            />
+        {/each}
+    </ul>
+</section>

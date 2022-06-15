@@ -48,22 +48,15 @@
 
 </script>
 
-<main>
+{#if !!error}
+	
+	<Error {error} />
 
-	<article class="post h-entry recette">
+{:else if pageData && selectedRecipeId}
 
-		{#if !!error}
-			
-			<Error {error} />
+	<WholeRecipe {pageData} {selectedRecipeId} />
 
-		{:else if pageData && selectedRecipeId}
+{:else}
 
-			<WholeRecipe {pageData} {selectedRecipeId} />
-
-		{:else}
-
-			<!-- No loading screen -->
-		{/if}
-		
-	</article>
-</main>
+	<!-- No loading screen -->
+{/if}

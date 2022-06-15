@@ -23,7 +23,7 @@
     input { 
         width: 4em; 
         border: 0;
-        background-color: var(--bg3-color);
+        background-color: var(--content-side-bg-color);
     }
 </style>
 

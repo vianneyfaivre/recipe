@@ -8,10 +8,11 @@
 </script>
 
 {#if pageData.preconditions || hasYeast }
+<section>
+    
     <h3>📜 Préambule</h3>
     
     <ul>
-    
         {#if pageData.preconditions}
             {#each Object.values(pageData.preconditions) as precondition }
                 <li>{ precondition }</li>
@@ -23,26 +24,26 @@
         {/if}
 
     </ul>
+</section>
 {/if}
 
     
 {#if recipe.preconditions }
-    <div class="variante-preconditions">
+<section>
 
-        <h3>📜 Préambule</h3>
+    <h3>📜 Préambule</h3>
+    
+    <ul>
         
-        <ul>
-            
-            {#each recipe.preconditions as precondition }
-            <li itemprop="recipeInstructions">{ precondition }</li>
-            {/each}
-            
-        </ul>
-    </div>
+        {#each recipe.preconditions as precondition }
+        <li itemprop="recipeInstructions">{ precondition }</li>
+        {/each}
+        
+    </ul>
+</section>
 {/if}
 
-<div class="variante-steps">
-
+<section>
     {#each Object.values(recipe.steps) as step}
         <h3>{step.emoji || '📜'} {step.label}</h3>
         <ol>
@@ -59,4 +60,4 @@
         {/each}
         </ol>
     {/each}
-</div>
+</section>

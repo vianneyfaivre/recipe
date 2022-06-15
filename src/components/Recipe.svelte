@@ -6,6 +6,7 @@ import Steps from "./Steps.svelte";
 import Variations from "./Variations.svelte";
 import Photos from "./Photos.svelte";
 import NutritionFacts from "./NutritionFacts.svelte";
+import { fade } from 'svelte/transition';
 
 export let pageData: PageDataDTO;
 export let recipeId: string;
@@ -35,7 +36,7 @@ export let recipe: RecipeDTO;
         border: 2px solid var(--border-color);
         border-radius: 20px;
 
-        background-color: var(--bg3-color);
+        background-color: var(--content-side-bg-color);
     }
 
     h2.steps-title {
@@ -83,11 +84,12 @@ export let recipe: RecipeDTO;
     }
 </style>
 
-<div id="{recipeId}-variante" class="variante-whole" itemscope itemtype="https://schema.org/Recipe">			
+<div in:fade="{{ duration: 500 }}" itemscope itemtype="https://schema.org/Recipe">			
 
-    <div id="{recipeId}-whole" class="recette-whole">
+    <section class="recette-whole">
         
         <div class="steps-panel"> 
+            
             <h2 class="steps-title">
                 📖 Étapes 📖
             </h2>
@@ -100,9 +102,9 @@ export let recipe: RecipeDTO;
             <Ingredients {recipe} />
         </div>
         
-    </div>
+    </section>
 
-    <div class="bottom-panel"> 
+    <aside class="bottom-panel"> 
 
         <Notes notes={pageData.notes} />
 
@@ -112,6 +114,6 @@ export let recipe: RecipeDTO;
 
         <Photos {recipeId} {recipe} title={pageData.title} />
 
-    </div>
+    </aside>
     
 </div>

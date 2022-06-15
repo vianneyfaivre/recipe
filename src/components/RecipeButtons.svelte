@@ -12,16 +12,16 @@
 </script>
 
 <style>
-.variations-tabs {  
+nav {  
     display: flex; 
     justify-content: center; 
     flex-wrap: wrap;
     margin-bottom: 15px; 
-    background-color: var(--bg-color); 
+    background-color: var(--header-bg-color); 
     border-bottom: 5px solid var(--border-color); 
 }
 
-.variations-tabs button { 
+nav button { 
     background-color: inherit; 
     border: none; 
     cursor: pointer; 
@@ -32,25 +32,24 @@
 }
 
 @media all and (max-width: 700px) { 
-    .variations-tabs button {  
+    nav button {  
         margin: 0;
         font-size: 12px; 
     }
 }
 
-.variations-tabs button:hover { 
+nav button:hover { 
     background-color: var(--border-color); 
 }
 
-.variations-tabs button.active { 
+nav button.active { 
     background-color: var(--border-color); 
     border-top-left-radius: 20px; 
     border-top-right-radius: 20px; 
 }
 </style>
 
-<div class="variations-tabs">
-        
+<nav>   
     {#each [...recipes] as [recipeId, _]}
         <button 
             class:active={recipeId === selectedRecipeId}
@@ -59,4 +58,4 @@
             {recipeId}
         </button>
     {/each}
-</div>
+</nav>
