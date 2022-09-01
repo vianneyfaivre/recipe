@@ -54,13 +54,14 @@ function displayBottomPanel(): boolean {
     
     .steps-panel { 
         padding: 0 10px; 
+        margin: 10px 0 0 0;
         flex: 1 1 auto; 
     }
 
     .bottom-panel {
         background-color: var(--footer-bg-color);
         border-top: 5px solid var(--border-color);
-        padding: 15px 10px 0 10px; 
+        padding: 15px 10px 10px 10px; 
     }
      
     @media all and (max-width: 700px) { 

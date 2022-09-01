@@ -58,7 +58,7 @@ export class IngredientDTO {
 
     set updatedQty(qty: number) {
 
-        if(this.unit && qty) {
+        if(this.unit && isFinite(qty)) {
 
             const before = this.unit;
             const pluralize = qty > 1;
