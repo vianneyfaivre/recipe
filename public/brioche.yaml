@@ -338,12 +338,58 @@ recipes:
         - Saupoudrer de sucre en grains
         - Cuire 30 minutes à 180°C
         - Laisser ressuer 30 minutes sur une grille
-notes:
-  - blabla
-  - lalallaal
-
-variations:
-  - label: variante 1
-    todo: false
-  - label: variante 2
-    todo: true
+  Test1:
+    ingredients: 
+      - label: lait
+        qty: 70
+        unit: gr
+      - label: levure sèche 
+        qty: 5
+        unit: gr 
+      - label: oeufs
+        qty: 2
+      - label: farine blanche
+        qty: 300
+        unit: gr
+        variable: true
+      - label: sucre blanc
+        qty: 30
+        unit: gr
+      - label: sel
+        qty: 5
+        unit: gr 
+      - label: beurre
+        qty: 100
+    steps:
+      - label: Pétrissage et Pointage (la veille - soir)
+        details:
+        - Couper le beurre en tout petits dés
+        - Dans le récipient de la machine à pain, verser le mélange lait-levure
+        - Ajouter les oeufs battus
+        - Ajouter la farine
+        - Ajouter le sel
+        - Ajouter le sucre
+        - Ajouter le beurre
+        - Lancer le programme "pétrissage seulement"
+        - Fleurer le plan de travail
+        - Déverser le pâton sur le plan de travail
+        - Dégazer
+        - Réserver au frais pour au moins 6h
+      - label: Façonnage (le lendemain - matin)
+        details:
+        - Dégazer
+        - Replier en son milieu sur la longueur. Répéter trois fois.
+        - Laisser une détente de 5 minutes
+        - Diviser en neuf pâtons de poids égal
+        - Bouler chaque pâton
+        - Beurrer le moule
+        - Placer dans un moule
+        - Laisser reposer 1 heure à 25°C
+      - label: Cuisson
+        emoji: 🔥
+        details:
+        - Badigeonner avec un jaune d'oeuf
+        - Saupoudrer de sucre en grains
+        - Cuire 25 minutes à 180°C
+        - Cuire 15 minutes à 150°C
+        - Laisser ressuer 30 minutes sur une grille

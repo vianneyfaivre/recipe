@@ -11,6 +11,15 @@ import { fade } from 'svelte/transition';
 export let pageData: PageDataDTO;
 export let recipeId: string;
 export let recipe: RecipeDTO;
+
+function displayBottomPanel(): boolean {
+
+    const hasNotes = pageData.notes.length > 0;
+    const hasVariations = pageData.variations.length > 0;
+    const hasPictures = recipe.pictures > 0;
+
+    return hasNotes || hasVariations || hasPictures;
+}
 </script>
 
 <style>
@@ -102,16 +111,18 @@ export let recipe: RecipeDTO;
         
     </section>
 
-    <aside class="bottom-panel"> 
+    {#if displayBottomPanel() === true}
+        <aside class="bottom-panel"> 
 
-        <Notes notes={pageData.notes} />
+            <Notes notes={pageData.notes} />
 
-        <Variations variations={pageData.variations} />
+            <Variations variations={pageData.variations} />
 
-        <NutritionFacts {recipe} />
+            <NutritionFacts {recipe} />
 
-        <Photos {recipeId} {recipe} title={pageData.title} />
+            <Photos {recipeId} {recipe} title={pageData.title} />
 
-    </aside>
-    
+        </aside>
+    {/if}
+
 </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
     import Recipe from "../components/Recipe.svelte";
-	import { fade } from 'svelte/transition';
     import type { PageDataDTO } from "../model/recipe";
     import RecipeButtons from "../components/RecipeButtons.svelte";
     import Page from "../layout/Page.svelte";
