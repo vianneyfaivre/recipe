@@ -10,6 +10,11 @@
 
         const newQty: number = +e.target.value;
 
+        if(newQty <= 0) {
+            console.debug(`Invalid quantity ${newQty}`);
+            return;
+        }
+
         console.debug(`Firing quantityChange event ${originalQty} => ${newQty}`);
 
 		dispatch('quantityChange', {

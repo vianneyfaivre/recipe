@@ -18,7 +18,13 @@
                 return;
             }
 
-            const ingredientNewQty: number = +((ingredientOldQty * newQuantity) / originalQuantity).toFixed(1);
+            let ingredientNewQty: number = +((ingredientOldQty * newQuantity) / originalQuantity).toFixed(1);
+
+            // avoid using 0 because it is considered false in the template part...
+            if(ingredientNewQty == 0) {
+                ingredientNewQty = 0.1;
+            }
+
             console.debug(`Changed "${ingredient.label}" from ${ingredientOldQty} to ${ingredientNewQty}`);
 
             ingredient.updatedQty = ingredientNewQty;
@@ -33,9 +39,9 @@
             if(!!newYield) {
                 console.debug(`Changed yield to "${newYield}"`);
                 recipe.updatedYield = newYield;
-                return;
             } else {
                 console.debug(`Invalid yield value ${newYield}`);
+                recipe.updatedYield = 0;
             }
         }
 
