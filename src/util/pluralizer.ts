@@ -1,6 +1,7 @@
 const PLURALIZABLE_WORDS = [
     { singular: "cuillère", plural: "cuillères" },
     { singular: "gousse", plural: "gousses" },
+    { singular: "oeuf", plural: "oeufs" },
     { singular: "jaune", plural: "jaunes" },
     { singular: "blanc", plural: "blancs" },
     { singular: "pincée", plural: "pincées" },
