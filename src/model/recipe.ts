@@ -14,7 +14,8 @@ export class PageDataDTO {
 
 export class RecipeDTO {
 
-    public updatedYield?: number;
+    _updatedYield?: number;
+    public updatedYieldType?: string;
 
     constructor(
         readonly ingredients: IngredientDTO[],
@@ -25,7 +26,29 @@ export class RecipeDTO {
         readonly yyield?: number, // can't use `yield` because it's a reserved keyword
         readonly pictures?: number,
     ) {
-        this.updatedYield = yyield;
+        this._updatedYield = yyield;
+        this.updatedYieldType = yieldType;
+    }
+
+    set updatedYield(yyield: number) {
+
+        if(this.updatedYieldType && isFinite(yyield)) {
+
+            const before = this.updatedYieldType;
+            const pluralize = yyield > 1;
+            const after = pluralizer.convert(this.updatedYieldType, pluralize);
+
+            if(before !== after) {
+                console.debug(`Change unit from '${before}' to '${after}'`);
+                this.updatedYieldType = after;
+            }
+        }
+
+        this._updatedYield = yyield;
+    }
+
+    get updatedYield(): number {
+        return this._updatedYield;
     }
 
     hasOption(option: Option): boolean {

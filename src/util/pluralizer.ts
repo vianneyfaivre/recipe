@@ -9,7 +9,10 @@ const PLURALIZABLE_WORDS = [
     { singular: "étoile", plural: "étoiles" },
     { singular: "baton", plural: "batons" },
     { singular: "carreau", plural: "carreaux" },
-    { singular: "grain", plural: "grains" }
+    { singular: "grain", plural: "grains" },
+    { singular: "plaque", plural: "plaques" },
+    { singular: "part", plural: "parts" },
+    { singular: "gâteau", plural: "gâteaux" }
 ];
 
 export const pluralizer = {

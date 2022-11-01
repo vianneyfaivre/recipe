@@ -9,5 +9,5 @@ pour
     <span>
         { recipe.updatedYield }
     </span>
-    {recipe.yieldType || ''}
+    {recipe.updatedYieldType || ''}
 </span>
