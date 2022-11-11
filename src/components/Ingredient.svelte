@@ -28,7 +28,9 @@
     input { 
         width: 4em; 
         border: 0;
-        background-color: var(--content-side-bg-color);
+        background-color: var(--content-main-bg-color);
+        border-radius: 20px;
+        border: 2px solid var(--border-color);
     }
 </style>
 
@@ -48,9 +50,10 @@
         {#if ingredient.variable === true }
         
             <input
-                type="number" 
+                type="text" 
+                inputmode="numeric" 
+                pattern="[0-9]*"
                 value="{ingredient.updatedQty || ingredient.qty}"
-                min="1"
                 on:input={e => onQuantityChange(ingredient.qty, e)}
             />
         {:else if ingredient.qty }
