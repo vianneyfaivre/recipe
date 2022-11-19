@@ -67,6 +67,7 @@ function displayBottomPanel(): boolean {
     @media all and (max-width: 700px) { 
 
         .recette-whole { 
+            margin-top: 15px; 
             flex-direction: column-reverse; /* "reverse" so the ingredients are displayed first */
         }
 

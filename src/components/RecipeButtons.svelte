@@ -16,7 +16,6 @@ nav {
     display: flex; 
     justify-content: center; 
     flex-wrap: wrap;
-    margin-bottom: 15px; 
     background-color: var(--header-bg-color); 
     border-bottom: 5px solid var(--border-color); 
 }
