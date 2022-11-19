@@ -34,7 +34,8 @@ function displayBottomPanel(): boolean {
         flex-grow: 0;
         flex-shrink: 1;
         flex-basis: min-content;
-        white-space: nowrap; 
+
+        white-space: nowrap;  /* the whole block will be as large as the longest ingredient */
         
         position: sticky;
         top: 15px;
@@ -88,6 +89,8 @@ function displayBottomPanel(): boolean {
             top: 0; 
             width: 85%;
             margin: auto;
+
+            white-space: normal;  /* re-enable line breaking because block width is already set */
         }
 
     }
