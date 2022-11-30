@@ -22,6 +22,7 @@ export class RecipeYaml {
     readonly ingredients: IngredientYaml[];
     readonly preconditions?: string[];
     readonly steps: StepYaml[];
+    readonly notes: Array<string | NoteYaml>;
     readonly pictures: number;
 }
 

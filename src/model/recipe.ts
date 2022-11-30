@@ -20,6 +20,7 @@ export class RecipeDTO {
     constructor(
         readonly ingredients: IngredientDTO[],
         readonly steps: StepDTO[],
+        readonly notes: Array<string | NoteDTO>,
         readonly options: Option[],
         readonly yieldType?: string,
         readonly preconditions?: string[],

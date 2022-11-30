@@ -22,10 +22,11 @@ const recipeMapper = (recipe: RecipeYaml): RecipeDTO => {
 
     const ingredients: IngredientDTO[] = ingredientsMapper(recipe.ingredients);
     const steps: StepDTO[] = stepsMapper(recipe.steps);
+    const notes: Array<string | NoteDTO> = notesMapper(recipe.notes);
     const options: Option[] = optionsMapper(recipe.options);
 
     return new RecipeDTO(
-        ingredients, steps, options, 
+        ingredients, steps, notes, options, 
         recipe.yieldType, recipe.preconditions, 
         recipe.yield, recipe.pictures); 
 };

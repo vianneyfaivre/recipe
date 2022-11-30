@@ -119,7 +119,7 @@ function displayBottomPanel(): boolean {
     {#if displayBottomPanel() === true}
         <aside class="bottom-panel"> 
 
-            <Notes notes={pageData.notes} />
+            <Notes notes={ [].concat(pageData.notes).concat(recipe.notes)} />
 
             <Variations variations={pageData.variations} />
 

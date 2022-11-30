@@ -11,11 +11,11 @@
     <ul>
         {#each notes as note }
         
-        {#if typeof note === "string" }
-        <li>{ note }</li>
-        {:else}
-        <li><a href="{ note.link }">{ note.label }</a></li>
-        {/if}
+            {#if typeof note === "string" }
+                <li>{ note }</li>
+            {:else}
+                <li><a href="{ note.link }">{ note.label }</a></li>
+            {/if}
         {/each}
     </ul>
 </section>
