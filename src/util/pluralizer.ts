@@ -12,7 +12,8 @@ const PLURALIZABLE_WORDS = [
     { singular: "grain", plural: "grains" },
     { singular: "plaque", plural: "plaques" },
     { singular: "part", plural: "parts" },
-    { singular: "gâteau", plural: "gâteaux" }
+    { singular: "gâteau", plural: "gâteaux" },
+    { singular: "bouteille", plural: "bouteilles" }
 ];
 
 export const pluralizer = {
