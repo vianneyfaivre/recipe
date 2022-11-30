@@ -14,7 +14,7 @@ export let recipe: RecipeDTO;
 
 function displayBottomPanel(): boolean {
 
-    const hasNotes = pageData.notes.length > 0;
+    const hasNotes = pageData.notes.length > 0 || recipe.notes.length > 0;
     const hasVariations = pageData.variations.length > 0;
     const hasPictures = recipe.pictures > 0;
 
