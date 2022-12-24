@@ -8,7 +8,7 @@
     
 <article class="recette">
     
-    <h1>{title}</h1>
+    <h1 itemprop="name">{title}</h1>
 
     <section>
         <slot></slot>
