@@ -13,7 +13,9 @@ const PLURALIZABLE_WORDS = [
     { singular: "plaque", plural: "plaques" },
     { singular: "part", plural: "parts" },
     { singular: "gâteau", plural: "gâteaux" },
-    { singular: "bouteille", plural: "bouteilles" }
+    { singular: "bouteille", plural: "bouteilles" },
+    { singular: "tranche", plural: "tranches" },
+    { singular: "litre", plural: "litres" }
 ];
 
 export const pluralizer = {
