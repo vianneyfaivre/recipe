@@ -96,7 +96,7 @@ function displayBottomPanel(): boolean {
     }
 </style>
 
-<div in:fade="{{ duration: 500 }}" itemscope itemtype="https://schema.org/Recipe">			
+<div in:fade|global="{{ duration: 500 }}" itemscope itemtype="https://schema.org/Recipe">			
 
     <section class="recette-whole">
         
