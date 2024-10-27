@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Input params
-foodIds=("3451790012358" "3068110702235" "3564700370315" "20057251" "3174660000896" "3412290011074" "3068110361869" "3451790012358")
+foodIds=("3558630110806", "3558630111100")
 
 for foodId in "${foodIds[@]}"
 do : 
@@ -18,17 +18,17 @@ do :
     name=${name//-/_}
 
     # Rename dest file
-    mv $destFile "nutrition-facts/$name.json"
+    destFileRenamed="nutrition-facts/$name.json"
+    mv $destFile $destFileRenamed
 
     # Data Format https://world.openfoodfacts.org/data/data-fields.txt
-    energy=$( cat $destFile | jq '.product | .nutriments | ."energy_value"' )
-    unit=$( cat $destFile | jq '.product | .nutriments | ."energy_unit"' )
-    carbs=$( cat $destFile | jq '.product | .nutriments | .carbohydrates_100g' )
-    fat=$( cat $destFile | jq '.product | .nutriments | .fat_100g' )
-    prot=$( cat $destFile | jq '.product | .nutriments | .proteins_100g' )
-    salt=$( cat $destFile | jq '.product | .nutriments | .salt_100g' )
-    fib=$( cat $destFile | jq '.product | .nutriments | .fiber_100g' )
+    energy=$( cat $destFileRenamed | jq '.product | .nutriments | ."energy-kcal_100g"' )
+    carbs=$( cat $destFileRenamed | jq '.product | .nutriments | .carbohydrates_100g' )
+    fat=$( cat $destFileRenamed | jq '.product | .nutriments | .fat_100g' )
+    prot=$( cat $destFileRenamed | jq '.product | .nutriments | .proteins_100g' )
+    salt=$( cat $destFileRenamed | jq '.product | .nutriments | .salt_100g' )
+    fib=$( cat $destFileRenamed | jq '.product | .nutriments | .fiber_100g' )
 
     # Poor's man code generation
-    echo "const $name = new NutritionFactsDTO($energy, $carbs, $fat, $prot, $salt, ViscosityDTO.REPLACEME);"
+    echo "const $name = new NutritionFactsDTO($energy, $carbs, $fat, $prot, $salt, HydrationDTO.REPLACEME);"
 done

@@ -26,6 +26,9 @@
             hydrationRatio = computeHydrationRatio(recipe);
         }
     }
+    else {
+        console.debug("Ingredients are not eligible for Nutrition Facts panel")
+    }
 
     function isEgg(ingredient: IngredientDTO): boolean {
 

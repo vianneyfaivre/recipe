@@ -43,7 +43,7 @@
 		// Select the first recipe by default
 		selectedRecipeId = selectedRecipeId || pageData.recipes.keys().next().value;
 
-		console.debug("Recipe initialized!");
+		console.debug("Recipe loaded!");
 	});
 
 </script>

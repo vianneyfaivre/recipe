@@ -16,7 +16,8 @@ const PLURALIZABLE_WORDS = [
     { singular: "gâteau", plural: "gâteaux" },
     { singular: "bouteille", plural: "bouteilles" },
     { singular: "tranche", plural: "tranches" },
-    { singular: "litre", plural: "litres" }
+    { singular: "litre", plural: "litres" },
+    { singular: "miche", plural: "miches" }
 ];
 
 export const pluralizer = {

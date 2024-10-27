@@ -21,7 +21,7 @@ export enum HydrationDTO {
 }
 
 /**
- * Nutrition Facts Database - per 100 gr
+ * Nutrition Facts Database - per 100 gr (https://openfoodfacts.org/)
  * 
  * SOLID vs LIQUID: https://www.youtube.com/watch?v=BUUXwH2L518&t=121s
  * - SOLID = flour
@@ -32,6 +32,15 @@ const sel = new NutritionFactsDTO(0, 0, 0, 0, 100, HydrationDTO.NOT_APPLICABLE);
 
 // 3068110702235
 const farineT45 = new NutritionFactsDTO(345, 72, 1.3, 10, 0, HydrationDTO.SOLID);
+
+// 3558630110806
+const farineT80 = new NutritionFactsDTO(344, 69, 1.1, 11, 0, HydrationDTO.SOLID);
+
+// 3558630111100
+const farineT110 = new NutritionFactsDTO(343, 67, 1.2, 11, 0, HydrationDTO.SOLID);
+
+// levain = half flour half water
+const levain = new NutritionFactsDTO(177, 35, 0.5, 5, 0, HydrationDTO.LIQUID);
 
 // 3564700370315
 const lait = new NutritionFactsDTO(64, 4.8, 3.6, 3.2, 0.1, HydrationDTO.LIQUID);
@@ -53,6 +62,7 @@ const cremeFleurette = new NutritionFactsDTO(301, 3.1, 31, 2.3, 0.08, HydrationD
 
 // Ingredients without nutritional facts but that we need to compute the hydration ratio
 const fleurOranger = new NutritionFactsDTO(0, 0, 0, 0, 0, HydrationDTO.LIQUID);
+const eau = new NutritionFactsDTO(0, 0, 0, 0, 0, HydrationDTO.LIQUID);
 
 // Some ingredients has such small quantities that we can ignore them (ex: spices)
 const IGNORE: NutritionFactsDTO = new NutritionFactsDTO(0, 0, 0, 0, 0, HydrationDTO.NOT_APPLICABLE);
@@ -60,11 +70,15 @@ const IGNORE: NutritionFactsDTO = new NutritionFactsDTO(0, 0, 0, 0, 0, Hydration
 export const nutritionDB = new Map<string, NutritionFactsDTO>();
 
 // lowercase only!!
+nutritionDB.set("levain", levain);
 nutritionDB.set("farine", farineT45);
 nutritionDB.set("farine t45", farineT45);
 nutritionDB.set("farine t55", farineT45);
 nutritionDB.set("farine blanche", farineT45);
+nutritionDB.set("farine t80", farineT80);
+nutritionDB.set("farine t110", farineT110);
 nutritionDB.set("lait", lait);
+nutritionDB.set("eau", eau);
 nutritionDB.set("oeufs", oeufs);
 nutritionDB.set("sucre", sucreBlanc);
 nutritionDB.set("sucre blanc", sucreBlanc);
