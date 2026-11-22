@@ -11,13 +11,22 @@
     "dev": "rollup -c -w",
     "start": "sirv public --single",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test": "npm run build && node --test test/smoke.test.js"
+    "test": "npm run test:vitest && npm run test:smoke",
+    "test:vitest": "vitest run",
+    "test:unit": "vitest run test/unit/",
+    "test:component": "vitest run test/component/",
+    "test:watch": "vitest",
+    "test:smoke": "npm run build && node --test test/smoke.test.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.2",
     "@rollup/plugin-typescript": "^12.3.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@testing-library/jest-dom": "^8.0.0",
+    "@testing-library/svelte": "^5.4.2",
+    "@testing-library/user-event": "^14.6.13",
     "@tsconfig/svelte": "^5.0.9",
     "jsdom": "^29.1.1",
     "rollup": "^4.68.8",
@@ -27,7 +36,9 @@
     "svelte": "^5.59.1",
     "svelte-check": "^4.7.8",
     "tslib": "^2.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
   },
   "dependencies": {
     "js-yaml": "^4.3.2",

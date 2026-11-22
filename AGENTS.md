@@ -15,7 +15,12 @@ Plain **rollup** build (no SvelteKit, no Vite), TypeScript, ESM (`"type": "modul
 | `npm start` | serve `public/` with sirv |
 | `deploy.sh` | build + copy `public/build/*` into the blog repo's assets |
 | `npm run check` | `svelte-check` — keep at **0 errors, 0 warnings** |
-| `npm test` | `npm run build` + `node --test test/smoke.test.js` (jsdom, no browser) |
+| `npm test` | runs everything: `test:vitest` (unit + component) then `test:smoke` |
+| `npm run test:vitest` | Vitest run — unit + component tests (jsdom, no build needed) |
+| `npm run test:unit` | Vitest run — only `test/unit/**` (pure logic) |
+| `npm run test:component` | Vitest run — only `test/component/**` (.svelte components) |
+| `npm run test:watch` | Vitest in watch mode for TDD |
+| `npm run test:smoke` | `npm run build` + `node --test test/smoke.test.js` (full-bundle integration, jsdom) |
 | `npm audit` | currently **0 vulnerabilities**; re-run after dep changes |
 
 Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor set by jsdom).
@@ -28,7 +33,8 @@ Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor s
 - `src/model/` — DTOs (`recipe.ts`, `yaml.ts`, `nutrition.ts`). **Enums live here in plain `.ts`**, compiled by `@rollup/plugin-typescript` (Svelte 5 only supports erasable TS in `.svelte` files — no preprocessor needed, see `svelte.config.js`).
 - `src/util/` — yaml-loader, model-mapper, anchor-manager (`sr` query param), pluralizer.
 - `public/` — `index.html`, recipe `*.yaml` files, `assets/`, `main.css`. `public/build/` is generated.
-- `test/smoke.test.js` — smoke tests (see below).
+- `test/` — tests (see below).
+- `vitest.config.js` — Vitest config: jsdom env, `@sveltejs/vite-plugin-svelte`, mocks `virtual:build-info` (DEV=false), setup file `test/setup.ts` (jest-dom matchers + `animate` stub + cleanup).
 - `rollup.config.js` — rollup 4 config; `production = !process.env.ROLLUP_WATCH`.
 
 ## Recipe yaml model (what the app does with it)
@@ -65,6 +71,20 @@ Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor s
 - `process.getBuiltinModule('child_process')` is used in the config (rollup 4 loads the config as ESM; `require` is unavailable).
 - `package.json`: caret ranges are intentional — `package-lock.json` is committed and provides the pinning; use `npm ci` for reproducible installs. `overrides.ws ^8` fixes the abandoned `livereload`→`ws@7` chain.
 
-## Tests (`test/smoke.test.js`)
+## Tests
 
-Run via `npm test` (builds first). Boots `public/build/bundle.js` in **jsdom** with a `fetch` stub serving `public/` and an `animate` stub (jsdom lacks WAAPI, used by `in:fade`). Covers: every `public/*.yaml` renders (title/ingredients/steps, no errors), variation switching + `?sr=` anchor, quantity scaling, photo maximize, link validity (all link types live in `public/test-links.yaml` — ingredient/step/note/variation links, same-page `?sr=` and blog-style `/recettes/<name>?sr=`, each validated against the target yaml's recipe ids), dev bar absent from prod bundle, error page on missing yaml, deep links. When adding features, add a case here.
+Three layers, following https://svelte.dev/docs/svelte/testing:
+
+### `test/unit/` — pure logic (Vitest, no DOM needed except anchor-manager)
+- `recipe-path.test.ts`, `dev-links.test.ts`, `pluralizer.test.ts`, `anchor-manager.test.ts`, `model-mapper.test.ts`, `recipe-dto.test.ts`
+- Test extracted logic in `src/util/` and `src/model/` in isolation.
+
+### `test/component/` — component tests (Vitest + jsdom + @testing-library/svelte)
+- One file per component: `Ingredient`, `Ingredients`, `Photos`, `RecipeButtons`, `Notes`, `Variations`, `Yield`, `Steps`, `Error`, `Page`, `WholeRecipe`
+- Uses `render()` + `screen` + `userEvent` from `@testing-library/svelte` / `@testing-library/user-event`, and `flushSync()` from `svelte` after interactions (per Svelte docs) — **no `setTimeout` ticks**.
+- `test/setup.ts` registers `@testing-library/jest-dom` matchers, stubs `HTMLElement.prototype.animate` (jsdom lacks WAAPI, used by `in:fade`), and auto-cleans up after each test.
+- `test/component/fixtures/` — small wrapper .svelte files for testing slot/children rendering.
+
+### `test/smoke.test.js` — full-bundle integration test (node --test, builds first)
+
+Run via `npm run test:smoke` (builds first). Boots `public/build/bundle.js` in **jsdom** with a `fetch` stub serving `public/` and an `animate` stub (jsdom lacks WAAPI, used by `in:fade`). Covers: every `public/*.yaml` renders (title/ingredients/steps, no errors), variation switching + `?sr=` anchor, quantity scaling, photo maximize, link validity (all link types live in `public/test-links.yaml` — ingredient/step/note/variation links, same-page `?sr=` and blog-style `/recettes/<name>?sr=`, each validated against the target yaml's recipe ids), dev bar absent from prod bundle, error page on missing yaml, deep links. When adding features, add a case here **and** a component-level test in `test/component/`.
