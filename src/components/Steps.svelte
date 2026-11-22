@@ -1,10 +1,14 @@
 <script lang="ts">
     import { Option, PageDataDTO, RecipeDTO } from "../model/recipe";
     
-    export let pageData: PageDataDTO;
-    export let recipe: RecipeDTO;
+    interface Props {
+        pageData: PageDataDTO;
+        recipe: RecipeDTO;
+    }
 
-    const hasYeast: boolean = recipe.hasOption(Option.YEAST);
+    let { pageData, recipe }: Props = $props();
+
+    let hasYeast: boolean = $derived(recipe.hasOption(Option.YEAST));
 </script>
 
 {#if pageData.preconditions || hasYeast }

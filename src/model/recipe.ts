@@ -48,7 +48,7 @@ export class RecipeDTO {
         this._updatedYield = yyield;
     }
 
-    get updatedYield(): number {
+    get updatedYield(): number | undefined {
         return this._updatedYield;
     }
 
@@ -97,7 +97,7 @@ export class IngredientDTO {
         this._updatedQty = qty;
     }
 
-    get updatedQty(): number {
+    get updatedQty(): number | undefined {
         return this._updatedQty;
     }
 }
@@ -131,6 +131,7 @@ export class VariationDTO {
 
     constructor(
         readonly label: string,
-        readonly todo: boolean
+        readonly todo: boolean,
+        readonly link?: string
     ) {}
 }

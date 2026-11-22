@@ -4,10 +4,14 @@
     import RecipeButtons from "../components/RecipeButtons.svelte";
     import Page from "../layout/Page.svelte";
 
-    export let pageData: PageDataDTO;
-    export let selectedRecipeId: string;
+    interface Props {
+        pageData: PageDataDTO;
+        selectedRecipeId: string;
+    }
 
-    const hasVariations: boolean = pageData.recipes.size > 1;
+    let { pageData, selectedRecipeId = $bindable() }: Props = $props();
+
+    let hasVariations: boolean = $derived(pageData.recipes.size > 1);
 </script>
 
 <Page title={pageData.title}>

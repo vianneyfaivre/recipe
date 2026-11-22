@@ -2,8 +2,12 @@
     import type { RecipeDTO } from "../model/recipe";
     import { anchorManager } from "../util/anchor-manager";
 
-    export let recipes: Map<string, RecipeDTO>;
-    export let selectedRecipeId: string;
+    interface Props {
+        recipes: Map<string, RecipeDTO>;
+        selectedRecipeId: string;
+    }
+
+    let { recipes, selectedRecipeId = $bindable() }: Props = $props();
 
     function onVariationClick(recipeId: string): void {
         selectedRecipeId = recipeId;
@@ -54,7 +58,7 @@ nav button.active {
     {#each [...recipes] as [recipeId, _]}
         <button 
             class:active={recipeId === selectedRecipeId}
-            on:click={_ => onVariationClick(recipeId)}
+            onclick={_ => onVariationClick(recipeId)}
         >
             {recipeId}
         </button>

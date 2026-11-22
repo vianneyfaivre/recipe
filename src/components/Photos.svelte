@@ -1,50 +1,64 @@
 <script lang="ts">
     import type { RecipeDTO } from "../model/recipe";
-    import { ImageDTO } from "../model/pictures";
     
-    export let recipeId: string;
-    export let recipe: RecipeDTO;
-    export let title: string;
-
-    const picturesCount = recipe.pictures || 0;
-
-    let images: ImageDTO[] = [];
-
-    for(let i = 1; i <= picturesCount; i++) {
-
-        const imagePath = `/assets/images/cooking/recipes/${title}/${recipeId}-${i}.jpg`;
-
-        images.push(new ImageDTO(imagePath));
+    interface Props {
+        recipeId: string;
+        recipe: RecipeDTO;
+        title: string;
     }
 
-    function onPictureClick(clickedImage: ImageDTO): void {
+    interface Picture {
+        path: string;
+        width: number;
+    }
 
-        if(!clickedImage.isMaximized()) {
+    let { recipeId, recipe, title }: Props = $props();
+
+    let picturesCount: number = $derived(recipe.pictures || 0);
+
+    // Plain objects (not class instances) so that $state makes `width` deeply reactive
+    let images: Picture[] = $state(buildImages());
+
+    function buildImages(): Picture[] {
+
+        const result: Picture[] = [];
+
+        for(let i = 1; i <= picturesCount; i++) {
+
+            const imagePath = `/assets/images/cooking/recipes/${title}/${recipeId}-${i}.jpg`;
+
+            result.push({ path: imagePath, width: 100 });
+        }
+
+        return result;
+    }
+
+    function onPictureClick(clickedImage: Picture): void {
+
+        if(clickedImage.width <= 100) {
 
             // Minimize other pictures
-            images.forEach(image => image.minimize());
+            images.forEach(image => image.width = 100);
 
             // Maximize clicked picture
-            clickedImage.maximize();
+            clickedImage.width = 400;
         } 
         // minimize image when clicking on an already maximized image
         else {
-            clickedImage.minimize();
+            clickedImage.width = 100;
         }
-
-        // Trigger a UI refresh
-        images = images;
     }
 
-    function onPictureLoadingError(img: EventTarget): void {
-        img.remove();
+    function onPictureLoadingError(e: Event): void {
+        (e.target as HTMLElement).remove();
     }
 
 </script>
 
 <style>
     .recipe-pictures { display: flex; flex-wrap: wrap; flex-shrink: 0; align-items: flex-start; }
-    img { padding: 5px; border-radius: 10px; transition: width 500ms; cursor: pointer; }
+    .picture-button { padding: 0; border: 0; background: none; cursor: pointer; }
+    img { padding: 5px; border-radius: 10px; transition: width 500ms; }
 </style>
 
 {#if picturesCount > 0}
@@ -55,15 +69,16 @@
     <div class="recipe-pictures">
         
         {#each images as image}
-            <img 
-                src={image.path}
-                itemprop='image'
-                width={image.width}
-                alt={title}
-                title={title}
-                on:click={_ => onPictureClick(image)} 
-                on:error={e => onPictureLoadingError(e.target)}
-            />
+            <button type="button" class="picture-button" onclick={_ => onPictureClick(image)}>
+                <img 
+                    src={image.path}
+                    itemprop='image'
+                    width={image.width}
+                    alt={title}
+                    title={title}
+                    onerror={onPictureLoadingError}
+                />
+            </button>
         {/each}
         
     </div>

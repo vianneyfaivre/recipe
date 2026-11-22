@@ -3,14 +3,18 @@
 
     import { IngredientDTO, Option, RecipeDTO } from "../model/recipe";
 
-    export let recipe: RecipeDTO;
+    interface Props {
+        recipe: RecipeDTO;
+    }
 
-    const nutritionFactsValid: boolean = computeRecipeNutrition(recipe);
+    let { recipe }: Props = $props();
 
-    let recipeNutritionFacts: NutritionFactsDTO;
-    let hydrationRatio: number;
+    let recipeNutritionFacts: NutritionFactsDTO | undefined = $derived.by(() => {
 
-    if(nutritionFactsValid === true) {
+        if(computeRecipeNutrition(recipe) !== true) {
+            console.debug("Ingredients are not eligible for Nutrition Facts panel");
+            return undefined;
+        }
 
         // For each ingredient, compute the nutrition facts (ratio qty vs 100 gr) 
         recipe
@@ -18,17 +22,23 @@
             .forEach(computeIngredientRatio);
 
         // Get recipe overall nutrition facts
-        recipeNutritionFacts = getNutritionFacts(recipe);
+        return getNutritionFacts(recipe);
+    });
+
+    let hydrationRatio: number | undefined = $derived.by(() => {
+
+        if(!recipeNutritionFacts) {
+            return undefined;
+        }
 
         if(recipe.hasOption(Option.HYDRATION) === true) {
 
             // Compute hydration ratio 
-            hydrationRatio = computeHydrationRatio(recipe);
+            return computeHydrationRatio(recipe);
         }
-    }
-    else {
-        console.debug("Ingredients are not eligible for Nutrition Facts panel")
-    }
+
+        return undefined;
+    });
 
     function isEgg(ingredient: IngredientDTO): boolean {
 
@@ -36,7 +46,10 @@
     }
 
     function getQuantity(ingredient: IngredientDTO): number {
-        return isEgg(ingredient) ? ingredient.qty * 50 : ingredient.qty;
+
+        const qty = ingredient.qty ?? 0;
+
+        return isEgg(ingredient) ? qty * 50 : qty;
     }
 
     function computeRecipeNutrition(recipe: RecipeDTO): boolean {
@@ -89,7 +102,7 @@
 
         // Sum up all nutrition facts to get the recipe overall nutrition facts
         const recipeNutritionFacts = recipe.ingredients
-                                        .map(i => i.nutritionFacts)
+                                        .map(i => i.nutritionFacts!)
                                         .reduce((prev, next, __, ___) => {
 
                                             const energy = prev.energy + next.energy;
@@ -107,12 +120,12 @@
     function computeHydrationRatio(recipe: RecipeDTO) {
 
         const liquidIngredientsGrams: number = recipe.ingredients
-                                                        .filter(i => i.nutritionFacts.viscosity === HydrationDTO.LIQUID)
+                                                        .filter(i => i.nutritionFacts!.viscosity === HydrationDTO.LIQUID)
                                                         .map(getQuantity)
                                                         .reduce((prev, next, __, ___) => prev + next);
 
         const solidIngredientsGrams: number = recipe.ingredients
-                                                        .filter(i => i.nutritionFacts.viscosity === HydrationDTO.SOLID)
+                                                        .filter(i => i.nutritionFacts!.viscosity === HydrationDTO.SOLID)
                                                         .map(getQuantity)
                                                         .reduce((prev, next, __, ___) => prev + next);
 
@@ -125,7 +138,7 @@
 
     function computeIngredientRatio(ingredient: IngredientDTO): void {
 
-        const nutritionPer100gr: NutritionFactsDTO = ingredient.nutritionFactsPer100gr;
+        const nutritionPer100gr: NutritionFactsDTO = ingredient.nutritionFactsPer100gr!;
 
         // Get the quantity (default it to 50 grams for eggs)
         const qty = getQuantity(ingredient);
@@ -137,12 +150,13 @@
         let protein = (qty * nutritionPer100gr.protein) / 100;
         let salt = (qty * nutritionPer100gr.salt) / 100;
 
-        // Divide by the number of servings
-        energy = energy / recipe.yyield;
-        carbs = carbs / recipe.yyield;
-        fat = fat / recipe.yyield;
-        protein = protein / recipe.yyield;
-        salt = salt / recipe.yyield;
+        // Divide by the number of servings (guaranteed to be set when nutrition facts are valid)
+        const servings: number = recipe.yyield!;
+        energy = energy / servings;
+        carbs = carbs / servings;
+        fat = fat / servings;
+        protein = protein / servings;
+        salt = salt / servings;
 
         // Assign nutrition facts to the ingredient
         ingredient.nutritionFacts = new NutritionFactsDTO(energy, carbs, fat, protein, salt, nutritionPer100gr.viscosity);

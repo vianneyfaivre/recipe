@@ -1,13 +1,19 @@
 <script lang="ts">
     import type { RecipeDTO } from "../model/recipe";
 
-    export let recipe: RecipeDTO;
+    interface Props {
+        recipe: RecipeDTO;
+        updatedYield?: number;
+        updatedYieldType?: string;
+    }
+
+    let { recipe, updatedYield, updatedYieldType }: Props = $props();
 </script>
 
 pour 
 <span itemprop="recipeYield">
     <span>
-        { recipe.updatedYield }
+        { updatedYield ?? recipe.updatedYield }
     </span>
-    {recipe.updatedYieldType || ''}
+    {updatedYieldType ?? recipe.updatedYieldType ?? ''}
 </span>

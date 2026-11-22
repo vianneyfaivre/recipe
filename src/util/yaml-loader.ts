@@ -15,7 +15,7 @@ export async function loadYaml(path: string): Promise<PageDataDTO> {
     try {
         json = await jsyaml.load(yaml);
     } catch(e) {
-        throw Error(`Le fichier "${path}" est invalide : ${e.reason}`);
+        throw Error(`Le fichier "${path}" est invalide : ${(e as any).reason}`);
     }
 
     let dto = Mappers.pageData(json);

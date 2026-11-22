@@ -1,0 +1,80 @@
+title: Test Links
+
+# Isolates every type of link in one place:
+# - ingredient links: no qty / qty / qty+unit / #anchor / blog-style /recettes/... path
+# - step detail links: same-page ?sr= and blog-style /recettes/... path
+# - note links: recipe-level, page-level, external https
+# - variation links: blog-style path and external https
+# plus a variable ingredient so link quantities can be checked while scaling.
+
+recipes:
+  Liens:
+    yield: 4
+    yieldType: parts
+    ingredients:
+      - label: variable
+        qty: 200
+        unit: gr
+        variable: true
+      - label: plain
+        qty: 100
+        unit: gr
+      - label: link without qty
+        link: "?sr=Recette 2"
+      - label: link with qty
+        link: "?sr=Recette 2"
+        qty: 1
+      - label: link with qty and unit
+        link: "?sr=Recette 3"
+        qty: 1
+        unit: liter
+      - label: link with anchor
+        link: "?sr=Recette 3#anchor"
+      - label: link to another page
+        link: /recettes/glacage?sr=Rocher
+        qty: 50
+        unit: gr
+    preconditions:
+      - precondition (no link)
+    steps:
+      - label: Steps
+        details:
+          - plain step detail (no link)
+          - label: step link same page
+            link: "?sr=Recette 2"
+          - label: step link other page
+            link: /recettes/glacage?sr=Rocher
+    notes:
+      - recipe string note (no link)
+      - label: recipe note link
+        link: "?sr=Recette 3"
+  Recette 2:
+    ingredients:
+      - label: target
+        qty: 1
+    steps:
+      - label: Steps
+        details:
+          - Step 1
+  Recette 3:
+    ingredients:
+      - label: target
+        qty: 2
+    steps:
+      - label: Steps
+        details:
+          - Step 1
+
+notes:
+  - global string note (no link)
+  - label: global note external link
+    link: https://vianneyfaivre.com
+
+variations:
+  - label: variante sans lien
+    todo: false
+  - label: variante avec lien
+    link: /recettes/glacage?sr=Rocher
+    todo: true
+  - label: variante lien externe
+    link: https://vianneyfaivre.com

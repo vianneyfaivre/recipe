@@ -7,55 +7,56 @@
  */
 export class PageDataYaml {
 		
-    readonly title: string;
-    readonly preconditions: string[];
-    readonly recipes: object; // real type: Map<string, RecipeYaml> (can't be deserialized by jsyaml)
-    readonly notes: Array<string | NoteYaml>;
-    readonly variations: VariationYaml[];
+    declare readonly title: string;
+    declare readonly preconditions: string[];
+    declare readonly recipes: object; // real type: Map<string, RecipeYaml> (can't be deserialized by jsyaml)
+    declare readonly notes: Array<string | NoteYaml>;
+    declare readonly variations: VariationYaml[];
 }
 
 export class RecipeYaml {
 
-    readonly yield?: number;
-    readonly yieldType?: string;
-    readonly options?: string;
-    readonly ingredients: IngredientYaml[];
-    readonly preconditions?: string[];
-    readonly steps: StepYaml[];
-    readonly notes: Array<string | NoteYaml>;
-    readonly pictures: number;
+    declare readonly yield?: number;
+    declare readonly yieldType?: string;
+    declare readonly options?: string;
+    declare readonly ingredients: IngredientYaml[];
+    declare readonly preconditions?: string[];
+    declare readonly steps: StepYaml[];
+    declare readonly notes: Array<string | NoteYaml>;
+    declare readonly pictures: number;
 }
 
 export class IngredientYaml {
 
-    readonly label: string;
-    readonly qty?: number;
-    readonly unit?: string;
-    readonly variable?: boolean;
-    readonly link?: string;
+    declare readonly label: string;
+    declare readonly qty?: number;
+    declare readonly unit?: string;
+    declare readonly variable?: boolean;
+    declare readonly link?: string;
 }
 
 export class StepYaml {
 
-    readonly label: string;
-    readonly emoji: string;
-    readonly details: Array<string | StepDetailYaml>;
+    declare readonly label: string;
+    declare readonly emoji: string;
+    declare readonly details: Array<string | StepDetailYaml>;
 }
 
 export class StepDetailYaml {
 
-    readonly label: string;
-    readonly link: string;
+    declare readonly label: string;
+    declare readonly link: string;
 }
 
 export class NoteYaml {
 
-    readonly label: string;
-    readonly link?: string;
+    declare readonly label: string;
+    declare readonly link?: string;
 }
 
 export class VariationYaml {
 
-    readonly label: string;
-    readonly todo: boolean;
+    declare readonly label: string;
+    declare readonly todo: boolean;
+    declare readonly link?: string;
 }

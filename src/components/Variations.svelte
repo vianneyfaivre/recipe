@@ -1,7 +1,11 @@
 <script lang="ts">
     import type { VariationDTO } from "../model/recipe";
     
-    export let variations: VariationDTO[];
+    interface Props {
+        variations: VariationDTO[];
+    }
+
+    let { variations }: Props = $props();
 </script>
 
 <style>
@@ -20,7 +24,11 @@
         <li>
             <input type="checkbox" checked={!variation.todo} />
             
-            { variation.label }
+            {#if variation.link }
+                <a href={variation.link}>{ variation.label }</a>
+            {:else}
+                { variation.label }
+            {/if}
         </li>
     {/each}
     </ul>

@@ -5,12 +5,18 @@
 	import WholeRecipe from "./pages/WholeRecipe.svelte";
 	import { anchorManager } from "./util/anchor-manager";
 	import { loadYaml } from './util/yaml-loader';
+	import { DEV } from 'virtual:build-info';
+	import DevBar from './components/DevBar.svelte';
 
-	export let recipeYaml: string;
+	interface Props {
+		recipeYaml: string;
+	}
 
-	let pageData: PageDataDTO;
-	let selectedRecipeId: string;
-	let error: string;
+	let { recipeYaml }: Props = $props();
+
+	let pageData: PageDataDTO | undefined = $state();
+	let selectedRecipeId: string | undefined = $state();
+	let error: string | undefined = $state();
 
 	onMount(async () => {
 
@@ -19,7 +25,7 @@
 			pageData = await loadYaml(recipeYaml); 
 		} catch(e) {
 			console.error(e);
-			error = e;
+			error = e instanceof globalThis.Error ? e.message : String(e);
 			return;
 		}
 
@@ -48,7 +54,11 @@
 
 </script>
 
-{#if !!error}
+{#if DEV}
+	<DevBar />
+{/if}
+
+{#if error}
 	
 	<Error {error} />
 

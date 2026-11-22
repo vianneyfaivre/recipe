@@ -21,17 +21,6 @@ recipes:
         qty: 100
         unit: gr
       - label: just name
-      - label: link with qty
-        link: /link/just-name
-        qty: 1
-      - label: link with qty and unit
-        link: /link/just-name
-        qty: 1
-        unit: liter
-      - label: link without qty
-        link: /link/without-qty
-      - label: link with anchor
-        link: /link/with#anchor
     preconditions:
       - pre 1
       - pre 2

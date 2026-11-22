@@ -53,7 +53,7 @@ const ingredientsMapper = (ingredients: IngredientYaml[]): IngredientDTO[] => {
     return ingredients.map(ingr => new IngredientDTO(ingr.label, ingr.qty, ingr.unit, ingr.variable, ingr.link));
 };
 
-const optionsMapper = (options: string): Option[] => {
+const optionsMapper = (options?: string): Option[] => {
 
     let allOptions = (options || "").split(",");
 
@@ -92,7 +92,7 @@ const variationsMapper = (variations: VariationYaml[]): VariationDTO[] => {
     }
 
     return variations.map(variation => {
-        return new VariationDTO(variation.label, variation.todo);
+        return new VariationDTO(variation.label, variation.todo, variation.link);
     });
 };
 

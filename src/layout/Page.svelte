@@ -1,7 +1,12 @@
 <script lang="ts">
     import GlobalStyle from "./GlobalStyle.svelte";
 
-    export let title: string;
+    interface Props {
+        title: string;
+        children?: import('svelte').Snippet;
+    }
+
+    let { title, children }: Props = $props();
 </script>
 
 <GlobalStyle /> 
@@ -11,6 +16,6 @@
     <h1 itemprop="name">{title}</h1>
 
     <section>
-        <slot></slot>
+        {@render children?.()}
     </section>
 </article>

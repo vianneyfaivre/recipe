@@ -8,15 +8,19 @@ import Photos from "./Photos.svelte";
 import NutritionFacts from "./NutritionFacts.svelte";
 import { fade } from 'svelte/transition';
 
-export let pageData: PageDataDTO;
-export let recipeId: string;
-export let recipe: RecipeDTO;
+    interface Props {
+        pageData: PageDataDTO;
+        recipeId: string;
+        recipe: RecipeDTO;
+    }
+
+    let { pageData, recipeId, recipe }: Props = $props();
 
 function displayBottomPanel(): boolean {
 
     const hasNotes = pageData.notes.length > 0 || recipe.notes.length > 0;
     const hasVariations = pageData.variations.length > 0;
-    const hasPictures = recipe.pictures > 0;
+    const hasPictures = (recipe.pictures || 0) > 0;
 
     return hasNotes || hasVariations || hasPictures;
 }
@@ -96,7 +100,7 @@ function displayBottomPanel(): boolean {
     }
 </style>
 
-<div in:fade|global="{{ duration: 500 }}" itemscope itemtype="https://schema.org/Recipe">			
+<div in:fade={{ duration: 500 }} itemscope itemtype="https://schema.org/Recipe">			
 
     <section class="recette-whole">
         
@@ -119,7 +123,7 @@ function displayBottomPanel(): boolean {
     {#if displayBottomPanel() === true}
         <aside class="bottom-panel"> 
 
-            <Notes notes={ [].concat(pageData.notes).concat(recipe.notes)} />
+            <Notes notes={[...pageData.notes, ...recipe.notes]} />
 
             <Variations variations={pageData.variations} />
 

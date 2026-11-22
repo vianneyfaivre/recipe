@@ -1,7 +1,11 @@
 <script lang="ts">
     import type { NoteDTO } from "../model/recipe";
     
-    export let notes: Array<string | NoteDTO>;
+    interface Props {
+        notes: Array<string | NoteDTO>;
+    }
+
+    let { notes }: Props = $props();
 </script>
 
 {#if notes && notes.length > 0}

@@ -1,12 +1,22 @@
 <script lang="ts">
     import type { IngredientDTO } from "../model/recipe";	
-    import { createEventDispatcher } from 'svelte';
 
-    export let ingredient: IngredientDTO;
-    
-    const dispatch = createEventDispatcher();
+    interface Props {
+        ingredient: IngredientDTO;
+        updatedQty?: number;
+        onQuantityChange?: (originalQty: number, newQty: number) => void;
+    }
 
-	function onQuantityChange(originalQty: number, e: any) {
+    let { ingredient, updatedQty, onQuantityChange }: Props = $props();
+
+    // Re-read the (mutated) ingredient whenever the updated quantity changes,
+    // because Svelte 5 does not track mutations on class instances.
+    let display = $derived.by(() => ({
+        qty: updatedQty || ingredient.updatedQty || ingredient.qty,
+        unit: ingredient.unit || ''
+    }));
+
+	function handleQuantityChange(originalQty: number, e: any) {
 
         const newQty: number = +e.target.value;
 
@@ -17,10 +27,7 @@
 
         console.debug(`Firing quantityChange event ${originalQty} => ${newQty}`);
 
-		dispatch('quantityChange', {
-			originalQty: originalQty,
-            newQty: newQty
-		});
+		onQuantityChange?.(originalQty, newQty);
 	}
 </script>
 
@@ -40,8 +47,8 @@
      
         <a href="{ ingredient.link }">
             { ingredient.label }
-            { ingredient.updatedQty || ingredient.qty || '' }
-            { ingredient.unit || '' }
+            { display.qty || '' }
+            { display.unit }
         </a>
 
     {:else}
@@ -53,16 +60,16 @@
                 type="text" 
                 inputmode="numeric" 
                 pattern="[0-9]*"
-                value="{ingredient.updatedQty || ingredient.qty}"
-                on:input={e => onQuantityChange(ingredient.qty, e)}
+                value={display.qty}
+                oninput={e => handleQuantityChange(ingredient.qty!, e)}
             />
         {:else if ingredient.qty }
-            {ingredient.updatedQty || ingredient.qty}
+            {display.qty}
         {:else }
             à souhait    
         {/if}
 
-        { ingredient.unit || '' }
+        { display.unit }
     {/if}
 
 </li>

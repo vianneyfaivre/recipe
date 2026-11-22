@@ -1,7 +1,11 @@
 <script lang="ts">
     import Page from "../layout/Page.svelte";
 
-    export let error: string;
+    interface Props {
+        error: string;
+    }
+
+    let { error }: Props = $props();
 </script>
 
 <Page title="Erreur !">

@@ -1,3 +1,6 @@
+<script lang="ts">
+</script>
+
 <style>
     :root {
         /* Theme - Blue/Pink 

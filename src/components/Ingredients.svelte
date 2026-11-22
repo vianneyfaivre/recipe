@@ -3,12 +3,22 @@
     import Ingredient from "./Ingredient.svelte";
     import Yield from "./Yield.svelte";
     
-    export let recipe: RecipeDTO;
+    interface Props {
+        recipe: RecipeDTO;
+    }
+
+    let { recipe }: Props = $props();
+
+    // Svelte 5 does not track mutations on class instances, so the updated
+    // values are mirrored into reactive state to trigger re-renders.
+    let updatedQuantities = $state<Record<number, number>>({});
+    let updatedYield = $state<number>();
+    let updatedYieldType = $state<string>();
 
     function updateIngredientsQuantities(originalQuantity: number, newQuantity: number) {
 
         // Update other ingredients quantity
-        recipe.ingredients.forEach(ingredient => {
+        recipe.ingredients.forEach((ingredient, index) => {
 
             const ingredientOldQty = ingredient.qty;
             
@@ -28,6 +38,7 @@
             console.debug(`Changed "${ingredient.label}" from ${ingredientOldQty} to ${ingredientNewQty}`);
 
             ingredient.updatedQty = ingredientNewQty;
+            updatedQuantities[index] = ingredientNewQty;
         });
 
         // Update recipe yield
@@ -43,10 +54,10 @@
                 console.debug(`Invalid yield value ${newYield}`);
                 recipe.updatedYield = 0;
             }
-        }
 
-        // Triggers a refresh of the whole list of ingredients 
-        recipe = recipe;
+            updatedYield = recipe.updatedYield;
+            updatedYieldType = recipe.updatedYieldType;
+        }
     }
 </script>
 
@@ -65,18 +76,19 @@
         🥕 Ingrédients
 
         {#if recipe.yyield}
-            <Yield {recipe} />
+            <Yield {recipe} {updatedYield} {updatedYieldType} />
         {/if}
 
         🥕
     </h3>
 
     <ul>
-        {#each recipe.ingredients as ingredient }
+        {#each recipe.ingredients as ingredient, index }
         
             <Ingredient 
                 {ingredient} 
-                on:quantityChange={e => updateIngredientsQuantities(e.detail.originalQty, e.detail.newQty)} 
+                updatedQty={updatedQuantities[index]}
+                onQuantityChange={(originalQty, newQty) => updateIngredientsQuantities(originalQty, newQty)} 
             />
         {/each}
     </ul>
