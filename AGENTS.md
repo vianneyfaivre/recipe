@@ -23,12 +23,14 @@ Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor s
 
 ## Layout
 
-- `src/main.ts` — entry; `mount(App, { target: #recipe-v2, props: { recipeYaml } })`. Reads `data-yaml-path` from the container; **dev only** also honors `?yaml=<file>`.
+- `src/main.ts` — entry; `mount(App, { target: #recipe-v2, props: { recipeYaml } })`. Reads `data-yaml-path` from the container (default: `/test-features.yaml`); **dev only** also honors `?yaml=<file>`.
 - `src/App.svelte` — loads yaml (`util/yaml-loader`), picks recipe from `?sr=` (`util/anchor-manager`), renders `pages/WholeRecipe` or `pages/Error`.
 - `src/pages/`, `src/layout/` (`Page.svelte` = title + `{@render children?.()}`), `src/components/` (Recipe, Ingredients, Ingredient, Steps, Yield, Notes, Variations, Photos, NutritionFacts, RecipeButtons, DevBar).
 - `src/model/` — DTOs (`recipe.ts`, `yaml.ts`, `nutrition.ts`). **Enums live here in plain `.ts`**, compiled by `@rollup/plugin-typescript` (Svelte 5 only supports erasable TS in `.svelte` files — no preprocessor needed, see `svelte.config.js`).
 - `src/util/` — yaml-loader, model-mapper, anchor-manager (`sr` query param), pluralizer.
-- `public/` — `index.html`, recipe `*.yaml` files, `assets/`, `main.css`. `public/build/` is generated.
+- `public/` — `index.html`, test recipe `test-*.yaml` files, `assets/`, `main.css`. `public/build/` is generated.
+  - `test-features.yaml` — **one sub-recipe per feature** (select via `?sr=<id>`): `Yeast`, `Hydration`, `Nutrition`, `UnitNoQty`, `NoYield`, `RecipePreconditions`, `RecipeNotes`, `Pictures` (pictures + variable ingredient for scaling), `Pluralizer` (variable ingredient + pluralizable units for singular↔plural on scaling).
+  - `test-links.yaml` — every link type: ingredient links (no qty / qty / qty+unit / #anchor / `/recettes/` blog path), step-detail links, note links (recipe + page + external), variation links.
 - `test/` — tests (see below).
 - `vitest.config.js` — Vitest config: jsdom env, `@sveltejs/vite-plugin-svelte`, mocks `virtual:build-info` (DEV=false), setup file `test/setup.ts` (jest-dom matchers + `animate` stub + cleanup).
 - `rollup.config.js` — rollup 4 config; `production = !process.env.ROLLUP_WATCH`.
@@ -39,10 +41,10 @@ Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor s
 - A recipe: `ingredients` (label, optional `qty`/`unit`/`variable`/`link`), `steps`, `notes`, `yield`/`yieldType`, `options` (`YEAST`, `HYDRATION`), `pictures`, `preconditions`.
 - **Variations**: `recipes` map keys are switched via buttons; selection is stored in the `?sr=<id>` query param (`anchorManager`). Invalid `sr` → first recipe + param removed.
 - **Variable ingredients** (`variable: true`) have an `<input>`; editing it scales all ingredient quantities and the yield (unit/yieldType pluralize via `pluralizer`).
-- **Links** render as `<a href>` in ingredients (with qty/unit in the text, scaling with the recipe), step details, notes (page- and recipe-level) and variations (`VariationDTO.link`, rendered when present). Two URI styles: `?sr=<id>` jumps to another recipe on the same page, or blog-style paths like `/recettes/glacage?sr=Rocher` (e.g. the "glaçage rocher" ingredient in `cake-chocolat.yaml`'s Marbré). All link cases are isolated in `public/test-links.yaml`.
+- **Links** render as `<a href>` in ingredients (with qty/unit in the text, scaling with the recipe), step details, notes (page- and recipe-level) and variations (`VariationDTO.link`, rendered when present). Two URI styles: `?sr=<id>` jumps to another recipe on the same page, or blog-style paths like `/recettes/test-features?sr=Yeast`. All link cases are isolated in `public/test-links.yaml`.
   - On localhost (dev only), blog-style paths work too: `npm start` uses `sirv public --single` (index.html fallback for extensionless paths; asset-like paths still 404), and `main.ts` maps `/recettes/<name>` → `/<name>.yaml` via `src/util/recipe-path.ts`. Production is unaffected (DEV-gated).
   - Also dev-only: same-page `?sr=` links would drop the `?yaml=` param on reload, so `main.ts` rewrites same-page link hrefs on click via `src/util/dev-links.ts` (`preserveYamlParam`) to keep the selected yaml. Cross-page (`/recettes/`) and external links are untouched.
-- `pictures: N` → loads `/assets/images/cooking/recipes/<title>/<recipeId>-<i>.jpg`; click toggles 100↔400 width.
+- `pictures: N` → loads `/assets/images/cooking/recipes/<title>/<recipeId>-<i>.jpg`; click toggles 100↔400 width. **The image files must exist on disk** (`public/assets/images/cooking/recipes/<title>/<recipeId>-N.jpg`) or the `onerror` handler removes the `<img>` and the Photos section renders empty. A smoke test verifies the files exist for the `Pictures` sub-recipe in `test-features.yaml`.
 - `options: HYDRATION` → nutrition panel also shows hydration ratio; nutrition facts come from the built-in `nutritionDB` (per-100gr, `src/model/nutrition.ts`).
 
 ## Svelte 5 conventions used here
@@ -67,20 +69,32 @@ Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor s
 - `process.getBuiltinModule('child_process')` is used in the config (rollup 4 loads the config as ESM; `require` is unavailable).
 - `package.json`: caret ranges are intentional — `package-lock.json` is committed and provides the pinning; use `npm ci` for reproducible installs. `overrides.ws ^8` fixes the abandoned `livereload`→`ws@7` chain.
 
+## Testing vision
+
+Three principles:
+
+1. **Every component must be unit tested** — one test file per `.svelte` component in `test/component/`, plus pure-logic tests in `test/unit/`. `GlobalStyle.svelte` is the only exception (CSS-only, no logic). When adding a new component, add its test file in the same commit.
+2. **Smoke / e2e testing must be done** — `test/smoke.test.js` boots the full production bundle in jsdom and exercises every yaml + feature end-to-end.
+3. **Every feature must be tryable live** — `npm run dev` serves [localhost:8080](http://localhost:8080) with a dev bar (yaml switcher). Each feature lives in its own sub-recipe in `public/test-features.yaml`, reachable at `http://localhost:8080/?sr=<id>` (or `/recettes/test-features?sr=<id>`). All link types are in `public/test-links.yaml` (`http://localhost:8080/?yaml=test-links.yaml`). When adding a feature, add a sub-recipe to `test-features.yaml` so it can be tried live.
+
+---
+
 ## Tests
 
 Three layers, following https://svelte.dev/docs/svelte/testing:
 
-### `test/unit/` — pure logic (Vitest, no DOM needed except anchor-manager)
+### `test/unit/` — pure logic (Vitest)
 - `recipe-path.test.ts`, `dev-links.test.ts`, `pluralizer.test.ts`, `anchor-manager.test.ts`, `model-mapper.test.ts`, `recipe-dto.test.ts`
 - Test extracted logic in `src/util/` and `src/model/` in isolation.
 
-### `test/component/` — component tests (Vitest + jsdom + @testing-library/svelte)
-- One file per component: `Ingredient`, `Ingredients`, `Photos`, `RecipeButtons`, `Notes`, `Variations`, `Yield`, `Steps`, `Error`, `Page`, `WholeRecipe`
+### `test/component/` — one test file per component (Vitest + jsdom + @testing-library/svelte)
+- Covers **every** `.svelte` component: `App`, `Recipe`, `Ingredients`, `Ingredient`, `Steps`, `Yield`, `Notes`, `Variations`, `Photos`, `NutritionFacts`, `RecipeButtons`, `DevBar`, `Error`, `Page`, `WholeRecipe` (plus `fixtures/PageWithChild.svelte` for slot testing).
 - Uses `render()` + `screen` + `userEvent` from `@testing-library/svelte` / `@testing-library/user-event`, and `flushSync()` from `svelte` after interactions (per Svelte docs) — **no `setTimeout` ticks**.
+- `DevBar.test.ts` overrides the `virtual:build-info` mock with `vi.mock` to set `DEV=true`.
+- `App.test.ts` stubs `fetch` to serve inline yaml.
 - `test/setup.ts` registers `@testing-library/jest-dom` matchers, stubs `HTMLElement.prototype.animate` (jsdom lacks WAAPI, used by `in:fade`), and auto-cleans up after each test.
 - `test/component/fixtures/` — small wrapper .svelte files for testing slot/children rendering.
 
 ### `test/smoke.test.js` — full-bundle integration test (node --test, builds first)
 
-Run via `npm test` (builds first as part of the test script). Boots `public/build/bundle.js` in **jsdom** with a `fetch` stub serving `public/` and an `animate` stub (jsdom lacks WAAPI, used by `in:fade`). Covers: every `public/*.yaml` renders (title/ingredients/steps, no errors), variation switching + `?sr=` anchor, quantity scaling, photo maximize, link validity (all link types live in `public/test-links.yaml` — ingredient/step/note/variation links, same-page `?sr=` and blog-style `/recettes/<name>?sr=`, each validated against the target yaml's recipe ids), dev bar absent from prod bundle, error page on missing yaml, deep links. When adding features, add a case here **and** a component-level test in `test/component/`.
+Run via `npm test` (builds first as part of the test script). Boots `public/build/bundle.js` in **jsdom** with a `fetch` stub serving `public/` and an `animate` stub. Covers: every `public/*.yaml` renders (title/ingredients/steps, no errors), variation switching + `?sr=` anchor, quantity scaling, **pluralizer** (singular↔plural on scaling), photo maximize, link validity (all link types in `test-links.yaml`, each validated against the target yaml's recipe ids), every `test-features.yaml` sub-recipe (Yeast, Hydration, Nutrition, UnitNoQty, NoYield, RecipePreconditions, RecipeNotes), dev bar absent from prod bundle, error page on missing yaml, deep links. When adding features, add a case here **and** a component test **and** a sub-recipe in `test-features.yaml`.

@@ -1,0 +1,153 @@
+title: Test Features
+
+# One sub-recipe per feature, isolated so each can be selected via ?sr=<id>.
+# This is the only yaml needed to exercise every app feature.
+
+preconditions:
+  - page-level precondition
+
+recipes:
+  # --- options ---
+  Yeast:
+    options: YEAST
+    ingredients:
+      - label: farine
+        qty: 100
+        unit: gr
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  Hydration:
+    yield: 1
+    yieldType: miche
+    options: HYDRATION
+    ingredients:
+      - label: farine
+        qty: 500
+        unit: gr
+      - label: eau
+        qty: 300
+        unit: gr
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  # --- nutrition ---
+  Nutrition:
+    yield: 2
+    yieldType: parts
+    ingredients:
+      - label: farine
+        qty: 200
+        unit: gr
+      - label: eau
+        qty: 100
+        unit: gr
+      - label: sel
+        qty: 5
+        unit: gr
+      - label: beurre
+        qty: 50
+        unit: gr
+      - label: oeufs
+        qty: 2
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  # --- ingredient edge cases ---
+  UnitNoQty:
+    ingredients:
+      - label: vanille liquide
+        unit: cuillère à café
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  NoYield:
+    ingredients:
+      - label: farine
+        qty: 100
+        unit: gr
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  # --- recipe-level sections ---
+  RecipePreconditions:
+    ingredients:
+      - label: farine
+        qty: 100
+        unit: gr
+    preconditions:
+      - recipe precondition A
+      - recipe precondition B
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  RecipeNotes:
+    ingredients:
+      - label: farine
+        qty: 100
+        unit: gr
+    steps:
+      - label: Step
+        details:
+          - Just a step
+    notes:
+      - recipe note string
+      - label: recipe note with link
+        link: "?sr=Yeast"
+
+  # --- pictures + scaling (variable ingredient) ---
+  Pictures:
+    yield: 18
+    yieldType: units
+    pictures: 2
+    ingredients:
+      - label: variable
+        qty: 350
+        unit: mL
+        variable: true
+      - label: fixed
+        qty: 100
+        unit: gr
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+  # --- pluralizer: scaling the variable ingredient must singularize/pluralize units ---
+  Pluralizer:
+    yield: 4
+    yieldType: part
+    ingredients:
+      - label: variable
+        qty: 1
+        unit: gousse
+        variable: true
+      - label: fixed singular
+        qty: 1
+        unit: pincée
+      - label: fixed plural
+        qty: 3
+        unit: feuilles
+    steps:
+      - label: Step
+        details:
+          - Just a step
+
+notes:
+  - page-level note
+
+variations:
+  - label: variante test
+    todo: false

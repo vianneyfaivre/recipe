@@ -31,7 +31,7 @@ recipes:
       - label: link with anchor
         link: "?sr=Recette 3#anchor"
       - label: link to another page
-        link: /recettes/glacage?sr=Rocher
+        link: /recettes/test-features?sr=Yeast
         qty: 50
         unit: gr
     preconditions:
@@ -43,7 +43,7 @@ recipes:
           - label: step link same page
             link: "?sr=Recette 2"
           - label: step link other page
-            link: /recettes/glacage?sr=Rocher
+            link: /recettes/test-features?sr=Yeast
     notes:
       - recipe string note (no link)
       - label: recipe note link
@@ -74,7 +74,7 @@ variations:
   - label: variante sans lien
     todo: false
   - label: variante avec lien
-    link: /recettes/glacage?sr=Rocher
+    link: /recettes/test-features?sr=Yeast
     todo: true
   - label: variante lien externe
     link: https://vianneyfaivre.com
