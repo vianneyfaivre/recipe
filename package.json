@@ -11,12 +11,8 @@
     "dev": "rollup -c -w",
     "start": "sirv public --single",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test": "npm run test:vitest && npm run test:smoke",
-    "test:vitest": "vitest run",
-    "test:unit": "vitest run test/unit/",
-    "test:component": "vitest run test/component/",
-    "test:watch": "vitest",
-    "test:smoke": "npm run build && node --test test/smoke.test.js"
+    "test": "vitest run && npm run build && node --test test/smoke.test.js",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.3",

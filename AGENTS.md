@@ -15,12 +15,8 @@ Plain **rollup** build (no SvelteKit, no Vite), TypeScript, ESM (`"type": "modul
 | `npm start` | serve `public/` with sirv |
 | `deploy.sh` | build + copy `public/build/*` into the blog repo's assets |
 | `npm run check` | `svelte-check` — keep at **0 errors, 0 warnings** |
-| `npm test` | runs everything: `test:vitest` (unit + component) then `test:smoke` |
-| `npm run test:vitest` | Vitest run — unit + component tests (jsdom, no build needed) |
-| `npm run test:unit` | Vitest run — only `test/unit/**` (pure logic) |
-| `npm run test:component` | Vitest run — only `test/component/**` (.svelte components) |
+| `npm test` | `vitest run` (unit + component) then `npm run build` + `node --test test/smoke.test.js` — runs everything |
 | `npm run test:watch` | Vitest in watch mode for TDD |
-| `npm run test:smoke` | `npm run build` + `node --test test/smoke.test.js` (full-bundle integration, jsdom) |
 | `npm audit` | currently **0 vulnerabilities**; re-run after dep changes |
 
 Node: `.nvmrc` = `lts/jod`; `package.json` has `engines.node >=22.13.0` (floor set by jsdom).
@@ -87,4 +83,4 @@ Three layers, following https://svelte.dev/docs/svelte/testing:
 
 ### `test/smoke.test.js` — full-bundle integration test (node --test, builds first)
 
-Run via `npm run test:smoke` (builds first). Boots `public/build/bundle.js` in **jsdom** with a `fetch` stub serving `public/` and an `animate` stub (jsdom lacks WAAPI, used by `in:fade`). Covers: every `public/*.yaml` renders (title/ingredients/steps, no errors), variation switching + `?sr=` anchor, quantity scaling, photo maximize, link validity (all link types live in `public/test-links.yaml` — ingredient/step/note/variation links, same-page `?sr=` and blog-style `/recettes/<name>?sr=`, each validated against the target yaml's recipe ids), dev bar absent from prod bundle, error page on missing yaml, deep links. When adding features, add a case here **and** a component-level test in `test/component/`.
+Run via `npm test` (builds first as part of the test script). Boots `public/build/bundle.js` in **jsdom** with a `fetch` stub serving `public/` and an `animate` stub (jsdom lacks WAAPI, used by `in:fade`). Covers: every `public/*.yaml` renders (title/ingredients/steps, no errors), variation switching + `?sr=` anchor, quantity scaling, photo maximize, link validity (all link types live in `public/test-links.yaml` — ingredient/step/note/variation links, same-page `?sr=` and blog-style `/recettes/<name>?sr=`, each validated against the target yaml's recipe ids), dev bar absent from prod bundle, error page on missing yaml, deep links. When adding features, add a case here **and** a component-level test in `test/component/`.
